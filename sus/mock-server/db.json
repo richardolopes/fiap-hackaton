@@ -1,0 +1,578 @@
+{
+  "especialidades": [
+    {
+      "id": 1,
+      "nome": "Clínica Geral",
+      "descricao": "Atendimento médico geral e preventivo",
+      "tempoConsultaMinutos": 30,
+      "ativo": true
+    },
+    {
+      "id": 2,
+      "nome": "Pediatria",
+      "descricao": "Atendimento médico infantil",
+      "tempoConsultaMinutos": 30,
+      "ativo": true
+    },
+    {
+      "id": 3,
+      "nome": "Cardiologia",
+      "descricao": "Especialidade do coração e sistema circulatório",
+      "tempoConsultaMinutos": 45,
+      "ativo": true
+    },
+    {
+      "id": 4,
+      "nome": "Dermatologia",
+      "descricao": "Tratamento de doenças de pele",
+      "tempoConsultaMinutos": 30,
+      "ativo": true
+    },
+    {
+      "id": 5,
+      "nome": "Ginecologia",
+      "descricao": "Saúde da mulher",
+      "tempoConsultaMinutos": 30,
+      "ativo": true
+    },
+    {
+      "id": 6,
+      "nome": "Ortopedia",
+      "descricao": "Tratamento de ossos, músculos e articulações",
+      "tempoConsultaMinutos": 30,
+      "ativo": true
+    },
+    {
+      "id": 7,
+      "nome": "Oftalmologia",
+      "descricao": "Cuidados com a visão",
+      "tempoConsultaMinutos": 30,
+      "ativo": true
+    },
+    {
+      "id": 8,
+      "nome": "Neurologia",
+      "descricao": "Sistema nervoso",
+      "tempoConsultaMinutos": 45,
+      "ativo": true
+    },
+    {
+      "id": 9,
+      "nome": "Psiquiatria",
+      "descricao": "Saúde mental",
+      "tempoConsultaMinutos": 60,
+      "ativo": true
+    },
+    {
+      "id": 10,
+      "nome": "Endocrinologia",
+      "descricao": "Sistema hormonal e metabólico",
+      "tempoConsultaMinutos": 30,
+      "ativo": true
+    }
+  ],
+  "profissionais": [
+    {
+      "id": 1,
+      "nomeCompleto": "Dr. João Silva",
+      "registroConselho": "CRM-SP 123456",
+      "especialidadeId": 1,
+      "codigoCnesUnidade": "2269473",
+      "ativo": true
+    },
+    {
+      "id": 2,
+      "nomeCompleto": "Dra. Maria Santos",
+      "registroConselho": "CRM-SP 234567",
+      "especialidadeId": 2,
+      "codigoCnesUnidade": "2269473",
+      "ativo": true
+    },
+    {
+      "id": 3,
+      "nomeCompleto": "Dr. Carlos Oliveira",
+      "registroConselho": "CRM-SP 345678",
+      "especialidadeId": 3,
+      "codigoCnesUnidade": "2269473",
+      "ativo": true
+    },
+    {
+      "id": 4,
+      "nomeCompleto": "Dra. Ana Rodrigues",
+      "registroConselho": "CRM-SP 456789",
+      "especialidadeId": 1,
+      "codigoCnesUnidade": "2078015",
+      "ativo": true
+    },
+    {
+      "id": 5,
+      "nomeCompleto": "Dr. Pedro Costa",
+      "registroConselho": "CRM-SP 567890",
+      "especialidadeId": 4,
+      "codigoCnesUnidade": "2078015",
+      "ativo": true
+    },
+    {
+      "id": 6,
+      "nomeCompleto": "Dra. Lucia Ferreira",
+      "registroConselho": "CRM-SP 678901",
+      "especialidadeId": 5,
+      "codigoCnesUnidade": "2078015",
+      "ativo": true
+    },
+    {
+      "id": 7,
+      "nomeCompleto": "Dr. Fernando Lima",
+      "registroConselho": "CRM-SP 789012",
+      "especialidadeId": 1,
+      "codigoCnesUnidade": "2077485",
+      "ativo": true
+    },
+    {
+      "id": 8,
+      "nomeCompleto": "Dra. Patricia Souza",
+      "registroConselho": "CRM-SP 890123",
+      "especialidadeId": 6,
+      "codigoCnesUnidade": "2077485",
+      "ativo": true
+    },
+    {
+      "id": 9,
+      "nomeCompleto": "Dr. Ricardo Almeida",
+      "registroConselho": "CRM-SP 901234",
+      "especialidadeId": 7,
+      "codigoCnesUnidade": "6317758",
+      "ativo": true
+    },
+    {
+      "id": 10,
+      "nomeCompleto": "Dra. Camila Nunes",
+      "registroConselho": "CRM-SP 012345",
+      "especialidadeId": 8,
+      "codigoCnesUnidade": "6317758",
+      "ativo": true
+    },
+    {
+      "id": 11,
+      "nomeCompleto": "Dr. André Martins",
+      "registroConselho": "CRM-SP 111222",
+      "especialidadeId": 1,
+      "codigoCnesUnidade": "2789590",
+      "ativo": true
+    },
+    {
+      "id": 12,
+      "nomeCompleto": "Dra. Beatriz Campos",
+      "registroConselho": "CRM-SP 222333",
+      "especialidadeId": 9,
+      "codigoCnesUnidade": "2789590",
+      "ativo": true
+    },
+    {
+      "id": 13,
+      "nomeCompleto": "Dr. Marcos Pereira",
+      "registroConselho": "CRM-SP 333444",
+      "especialidadeId": 1,
+      "codigoCnesUnidade": "7156821",
+      "ativo": true
+    },
+    {
+      "id": 14,
+      "nomeCompleto": "Dra. Julia Ribeiro",
+      "registroConselho": "CRM-SP 444555",
+      "especialidadeId": 10,
+      "codigoCnesUnidade": "7156821",
+      "ativo": true
+    },
+    {
+      "id": 15,
+      "nomeCompleto": "Dr. Roberto Gomes",
+      "registroConselho": "CRM-RJ 555666",
+      "especialidadeId": 1,
+      "codigoCnesUnidade": "2023539",
+      "ativo": true
+    },
+    {
+      "id": 16,
+      "nomeCompleto": "Dra. Carla Dias",
+      "registroConselho": "CRM-RJ 666777",
+      "especialidadeId": 3,
+      "codigoCnesUnidade": "2023539",
+      "ativo": true
+    },
+    {
+      "id": 17,
+      "nomeCompleto": "Dr. Paulo Mendes",
+      "registroConselho": "CRM-MG 777888",
+      "especialidadeId": 1,
+      "codigoCnesUnidade": "3015874",
+      "ativo": true
+    },
+    {
+      "id": 18,
+      "nomeCompleto": "Dra. Renata Castro",
+      "registroConselho": "CRM-MG 888999",
+      "especialidadeId": 2,
+      "codigoCnesUnidade": "3015874",
+      "ativo": true
+    }
+  ],
+  "horarios": [
+    {
+      "id": 1,
+      "profissionalId": 1,
+      "diaSemana": "MONDAY",
+      "horaInicio": "08:00",
+      "horaFim": "12:00",
+      "ativo": true
+    },
+    {
+      "id": 2,
+      "profissionalId": 1,
+      "diaSemana": "MONDAY",
+      "horaInicio": "14:00",
+      "horaFim": "18:00",
+      "ativo": true
+    },
+    {
+      "id": 3,
+      "profissionalId": 1,
+      "diaSemana": "TUESDAY",
+      "horaInicio": "08:00",
+      "horaFim": "12:00",
+      "ativo": true
+    },
+    {
+      "id": 4,
+      "profissionalId": 1,
+      "diaSemana": "TUESDAY",
+      "horaInicio": "14:00",
+      "horaFim": "18:00",
+      "ativo": true
+    },
+    {
+      "id": 5,
+      "profissionalId": 1,
+      "diaSemana": "WEDNESDAY",
+      "horaInicio": "08:00",
+      "horaFim": "12:00",
+      "ativo": true
+    },
+    {
+      "id": 6,
+      "profissionalId": 1,
+      "diaSemana": "WEDNESDAY",
+      "horaInicio": "14:00",
+      "horaFim": "18:00",
+      "ativo": true
+    },
+    {
+      "id": 7,
+      "profissionalId": 1,
+      "diaSemana": "THURSDAY",
+      "horaInicio": "08:00",
+      "horaFim": "12:00",
+      "ativo": true
+    },
+    {
+      "id": 8,
+      "profissionalId": 1,
+      "diaSemana": "THURSDAY",
+      "horaInicio": "14:00",
+      "horaFim": "18:00",
+      "ativo": true
+    },
+    {
+      "id": 9,
+      "profissionalId": 1,
+      "diaSemana": "FRIDAY",
+      "horaInicio": "08:00",
+      "horaFim": "12:00",
+      "ativo": true
+    },
+    {
+      "id": 10,
+      "profissionalId": 1,
+      "diaSemana": "FRIDAY",
+      "horaInicio": "14:00",
+      "horaFim": "18:00",
+      "ativo": true
+    },
+    {
+      "id": 11,
+      "profissionalId": 2,
+      "diaSemana": "MONDAY",
+      "horaInicio": "08:00",
+      "horaFim": "12:00",
+      "ativo": true
+    },
+    {
+      "id": 12,
+      "profissionalId": 2,
+      "diaSemana": "TUESDAY",
+      "horaInicio": "08:00",
+      "horaFim": "12:00",
+      "ativo": true
+    },
+    {
+      "id": 13,
+      "profissionalId": 2,
+      "diaSemana": "WEDNESDAY",
+      "horaInicio": "08:00",
+      "horaFim": "12:00",
+      "ativo": true
+    },
+    {
+      "id": 14,
+      "profissionalId": 2,
+      "diaSemana": "THURSDAY",
+      "horaInicio": "08:00",
+      "horaFim": "12:00",
+      "ativo": true
+    },
+    {
+      "id": 15,
+      "profissionalId": 2,
+      "diaSemana": "FRIDAY",
+      "horaInicio": "08:00",
+      "horaFim": "12:00",
+      "ativo": true
+    },
+    {
+      "id": 16,
+      "profissionalId": 3,
+      "diaSemana": "MONDAY",
+      "horaInicio": "14:00",
+      "horaFim": "18:00",
+      "ativo": true
+    },
+    {
+      "id": 17,
+      "profissionalId": 3,
+      "diaSemana": "WEDNESDAY",
+      "horaInicio": "14:00",
+      "horaFim": "18:00",
+      "ativo": true
+    },
+    {
+      "id": 18,
+      "profissionalId": 3,
+      "diaSemana": "FRIDAY",
+      "horaInicio": "14:00",
+      "horaFim": "18:00",
+      "ativo": true
+    },
+    {
+      "id": 19,
+      "profissionalId": 4,
+      "diaSemana": "MONDAY",
+      "horaInicio": "08:00",
+      "horaFim": "12:00",
+      "ativo": true
+    },
+    {
+      "id": 20,
+      "profissionalId": 4,
+      "diaSemana": "MONDAY",
+      "horaInicio": "14:00",
+      "horaFim": "18:00",
+      "ativo": true
+    },
+    {
+      "id": 21,
+      "profissionalId": 4,
+      "diaSemana": "TUESDAY",
+      "horaInicio": "08:00",
+      "horaFim": "12:00",
+      "ativo": true
+    },
+    {
+      "id": 22,
+      "profissionalId": 4,
+      "diaSemana": "TUESDAY",
+      "horaInicio": "14:00",
+      "horaFim": "18:00",
+      "ativo": true
+    },
+    {
+      "id": 23,
+      "profissionalId": 4,
+      "diaSemana": "WEDNESDAY",
+      "horaInicio": "08:00",
+      "horaFim": "12:00",
+      "ativo": true
+    },
+    {
+      "id": 24,
+      "profissionalId": 4,
+      "diaSemana": "WEDNESDAY",
+      "horaInicio": "14:00",
+      "horaFim": "18:00",
+      "ativo": true
+    },
+    {
+      "id": 25,
+      "profissionalId": 4,
+      "diaSemana": "THURSDAY",
+      "horaInicio": "08:00",
+      "horaFim": "12:00",
+      "ativo": true
+    },
+    {
+      "id": 26,
+      "profissionalId": 4,
+      "diaSemana": "THURSDAY",
+      "horaInicio": "14:00",
+      "horaFim": "18:00",
+      "ativo": true
+    },
+    {
+      "id": 27,
+      "profissionalId": 4,
+      "diaSemana": "FRIDAY",
+      "horaInicio": "08:00",
+      "horaFim": "12:00",
+      "ativo": true
+    },
+    {
+      "id": 28,
+      "profissionalId": 4,
+      "diaSemana": "FRIDAY",
+      "horaInicio": "14:00",
+      "horaFim": "18:00",
+      "ativo": true
+    }
+  ],
+  "pacientes": [
+    {
+      "id": 1,
+      "nomeCompleto": "José da Silva",
+      "cpf": "12345678901",
+      "cartaoSus": "123456789012345",
+      "dataNascimento": "1985-05-15",
+      "telefone": "11987654321",
+      "email": "jose.silva@email.com",
+      "endereco": "Rua das Flores, 100",
+      "municipio": "São Paulo",
+      "uf": "SP",
+      "cep": "01310100"
+    },
+    {
+      "id": 2,
+      "nomeCompleto": "Maria Oliveira",
+      "cpf": "23456789012",
+      "cartaoSus": "234567890123456",
+      "dataNascimento": "1990-08-22",
+      "telefone": "11912345678",
+      "email": "maria.oliveira@email.com",
+      "endereco": "Av. Paulista, 1000",
+      "municipio": "São Paulo",
+      "uf": "SP",
+      "cep": "01310200"
+    },
+    {
+      "id": 3,
+      "nomeCompleto": "Carlos Santos",
+      "cpf": "34567890123",
+      "cartaoSus": "345678901234567",
+      "dataNascimento": "1978-12-10",
+      "telefone": "11998765432",
+      "email": "carlos.santos@email.com",
+      "endereco": "Rua Augusta, 500",
+      "municipio": "São Paulo",
+      "uf": "SP",
+      "cep": "01310300"
+    },
+    {
+      "id": 4,
+      "nomeCompleto": "Ana Costa",
+      "cpf": "45678901234",
+      "cartaoSus": "456789012345678",
+      "dataNascimento": "2000-03-25",
+      "telefone": "11976543210",
+      "email": "ana.costa@email.com",
+      "endereco": "Rua Oscar Freire, 200",
+      "municipio": "São Paulo",
+      "uf": "SP",
+      "cep": "01310400"
+    },
+    {
+      "id": 5,
+      "nomeCompleto": "Pedro Ferreira",
+      "cpf": "56789012345",
+      "cartaoSus": "567890123456789",
+      "dataNascimento": "1965-07-08",
+      "telefone": "11965432109",
+      "email": "pedro.ferreira@email.com",
+      "endereco": "Alameda Santos, 300",
+      "municipio": "São Paulo",
+      "uf": "SP",
+      "cep": "01310500"
+    },
+    {
+      "id": 6,
+      "nomeCompleto": "Lucia Mendes",
+      "cpf": "67890123456",
+      "cartaoSus": "678901234567890",
+      "dataNascimento": "1995-11-30",
+      "telefone": "11954321098",
+      "email": "lucia.mendes@email.com",
+      "endereco": "Rua Consolação, 800",
+      "municipio": "São Paulo",
+      "uf": "SP",
+      "cep": "01310600"
+    },
+    {
+      "id": 7,
+      "nomeCompleto": "Roberto Almeida",
+      "cpf": "78901234567",
+      "cartaoSus": "789012345678901",
+      "dataNascimento": "1982-02-14",
+      "telefone": "11943210987",
+      "email": "roberto.almeida@email.com",
+      "endereco": "Av. Brasil, 1500",
+      "municipio": "São Paulo",
+      "uf": "SP",
+      "cep": "01310700"
+    },
+    {
+      "id": 8,
+      "nomeCompleto": "Fernanda Lima",
+      "cpf": "89012345678",
+      "cartaoSus": "890123456789012",
+      "dataNascimento": "1988-09-05",
+      "telefone": "11932109876",
+      "email": "fernanda.lima@email.com",
+      "endereco": "Rua Bela Cintra, 400",
+      "municipio": "São Paulo",
+      "uf": "SP",
+      "cep": "01310800"
+    },
+    {
+      "id": 9,
+      "nomeCompleto": "Marcos Pereira",
+      "cpf": "90123456789",
+      "cartaoSus": "901234567890123",
+      "dataNascimento": "1970-04-20",
+      "telefone": "21987654321",
+      "email": "marcos.pereira@email.com",
+      "endereco": "Av. Rio Branco, 200",
+      "municipio": "Rio de Janeiro",
+      "uf": "RJ",
+      "cep": "20040020"
+    },
+    {
+      "id": 10,
+      "nomeCompleto": "Juliana Ribeiro",
+      "cpf": "01234567890",
+      "cartaoSus": "012345678901234",
+      "dataNascimento": "1992-06-18",
+      "telefone": "31987654321",
+      "email": "juliana.ribeiro@email.com",
+      "endereco": "Av. Afonso Pena, 500",
+      "municipio": "Belo Horizonte",
+      "uf": "MG",
+      "cep": "30130000"
+    }
+  ]
+}
