@@ -29,4 +29,5 @@ public class AgendamentoResponse {
     private TipoAtendimento tipoAtendimento;
     private String observacoes;
     private LocalDateTime dataCriacao;
+    private String motivoCancelamento;
 }

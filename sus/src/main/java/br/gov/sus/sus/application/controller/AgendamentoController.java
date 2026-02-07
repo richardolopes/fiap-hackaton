@@ -1,9 +1,11 @@
 package br.gov.sus.sus.application.controller;
 
 import br.gov.sus.sus.application.dto.request.AgendamentoPorCepRequest;
+import br.gov.sus.sus.application.dto.request.CancelamentoRequest;
 import br.gov.sus.sus.application.dto.response.AgendamentoResponse;
 import br.gov.sus.sus.domain.entity.Agendamento;
 import br.gov.sus.sus.domain.usecase.agendamento.BuscarAgendamentoPorIdUseCase;
+import br.gov.sus.sus.domain.usecase.agendamento.CancelarAgendamentoUseCase;
 import br.gov.sus.sus.domain.usecase.agendamento.CriarAgendamentoPorCepUseCase;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -16,11 +18,14 @@ public class AgendamentoController {
     
     private final CriarAgendamentoPorCepUseCase criarAgendamentoPorCepUseCase;
     private final BuscarAgendamentoPorIdUseCase buscarAgendamentoPorIdUseCase;
+    private final CancelarAgendamentoUseCase cancelarAgendamentoUseCase;
     
     public AgendamentoController(CriarAgendamentoPorCepUseCase criarAgendamentoPorCepUseCase,
-                                 BuscarAgendamentoPorIdUseCase buscarAgendamentoPorIdUseCase) {
+                                 BuscarAgendamentoPorIdUseCase buscarAgendamentoPorIdUseCase,
+                                 CancelarAgendamentoUseCase cancelarAgendamentoUseCase) {
         this.criarAgendamentoPorCepUseCase = criarAgendamentoPorCepUseCase;
         this.buscarAgendamentoPorIdUseCase = buscarAgendamentoPorIdUseCase;
+        this.cancelarAgendamentoUseCase = cancelarAgendamentoUseCase;
     }
     
     /**
@@ -46,6 +51,16 @@ public class AgendamentoController {
         return ResponseEntity.ok(toResponse(agendamento));
     }
     
+    /**
+     * Cancelar agendamento
+     */
+    @PatchMapping("/{id}/cancelar")
+    public ResponseEntity<AgendamentoResponse> cancelar(@PathVariable Long id,
+                                                         @Valid @RequestBody CancelamentoRequest request) {
+        Agendamento agendamento = cancelarAgendamentoUseCase.executar(id, request.getMotivo(), true);
+        return ResponseEntity.ok(toResponse(agendamento));
+    }
+    
     private AgendamentoResponse toResponse(Agendamento agendamento) {
         return AgendamentoResponse.builder()
                 .id(agendamento.getId())
@@ -62,6 +77,7 @@ public class AgendamentoController {
                 .tipoAtendimento(agendamento.getTipoAtendimento())
                 .observacoes(agendamento.getObservacoes())
                 .dataCriacao(agendamento.getDataCriacao())
+                .motivoCancelamento(agendamento.getMotivoCancelamento())
                 .build();
     }
 }

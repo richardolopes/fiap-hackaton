@@ -2,7 +2,6 @@ package br.gov.sus.sus.infrastructure.config;
 
 import br.gov.sus.sus.domain.gateway.*;
 import br.gov.sus.sus.domain.usecase.agendamento.*;
-import br.gov.sus.sus.infrastructure.client.gateway.UnidadeSaudeClientGateway;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,18 +13,23 @@ public class UseCaseConfig {
             AgendamentoGateway agendamentoGateway,
             PacienteGateway pacienteGateway,
             ProfissionalGateway profissionalGateway,
-            UnidadeSaudeClientGateway unidadeSaudeClientGateway,
+            UnidadeSaudeGateway unidadeSaudeGateway,
             EspecialidadeGateway especialidadeGateway) {
         return new CriarAgendamentoPorCepUseCase(
                 agendamentoGateway,
                 pacienteGateway,
                 profissionalGateway,
-                unidadeSaudeClientGateway,
+                unidadeSaudeGateway,
                 especialidadeGateway);
     }
     
     @Bean
     public BuscarAgendamentoPorIdUseCase buscarAgendamentoPorIdUseCase(AgendamentoGateway agendamentoGateway) {
         return new BuscarAgendamentoPorIdUseCase(agendamentoGateway);
+    }
+    
+    @Bean
+    public CancelarAgendamentoUseCase cancelarAgendamentoUseCase(AgendamentoGateway agendamentoGateway) {
+        return new CancelarAgendamentoUseCase(agendamentoGateway);
     }
 }

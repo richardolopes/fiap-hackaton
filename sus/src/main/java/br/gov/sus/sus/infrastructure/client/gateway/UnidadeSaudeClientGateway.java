@@ -67,51 +67,6 @@ public class UnidadeSaudeClientGateway implements UnidadeSaudeGateway {
                 .build());
     }
 
-    @Override
-    public List<UnidadeSaude> buscarPorUf(Integer codigoUf) {
-        try {
-            log.info("Buscando UBS por UF: {} na API do SUS", codigoUf);
-            
-            EstabelecimentoSusResponse response = estabelecimentoClient.buscarPorUf(codigoUf, CODIGO_TIPO_UNIDADE_UBS, 100);
-            if (response == null || response.getEstabelecimentos() == null) {
-                return Collections.emptyList();
-            }
-
-            return response.getEstabelecimentos().stream()
-                    .map(this::estabelecimentoToDomain)
-                    .collect(Collectors.toList());
-
-        } catch (Exception e) {
-            log.error("Erro ao buscar UBS por UF {}: {}", codigoUf, e.getMessage());
-            return Collections.emptyList();
-        }
-    }
-
-    @Override
-    public List<UnidadeSaude> buscarPorMunicipio(Integer codigoMunicipio) {
-        try {
-            log.info("Buscando UBS por município: {} na API do SUS", codigoMunicipio);
-            
-            EstabelecimentoSusResponse response = estabelecimentoClient.buscarPorMunicipio(codigoMunicipio, CODIGO_TIPO_UNIDADE_UBS, 100);
-            if (response == null || response.getEstabelecimentos() == null) {
-                return Collections.emptyList();
-            }
-
-            return response.getEstabelecimentos().stream()
-                    .map(this::estabelecimentoToDomain)
-                    .collect(Collectors.toList());
-
-        } catch (Exception e) {
-            log.error("Erro ao buscar UBS por município {}: {}", codigoMunicipio, e.getMessage());
-            return Collections.emptyList();
-        }
-    }
-
-    @Override
-    public List<UnidadeSaude> buscarPorUfEMunicipio(Integer codigoUf, Integer codigoMunicipio) {
-        return buscarPorMunicipio(codigoMunicipio);
-    }
-
     /**
      * Busca a UBS mais próxima do CEP informado usando a API de estabelecimentos CNES.
      * 
@@ -122,6 +77,7 @@ public class UnidadeSaudeClientGateway implements UnidadeSaudeGateway {
      * 4. Calcular a distância entre o CEP e cada UBS usando coordenadas
      * 5. Retornar a UBS mais próxima e cachear o resultado
      */
+    @Override
     public Optional<UnidadeSaude> buscarUbsMaisProximaPorCep(String cep) {
         try {
             log.info("Buscando UBS mais próxima do CEP: {}", cep);
@@ -224,53 +180,6 @@ public class UnidadeSaudeClientGateway implements UnidadeSaudeGateway {
         
         log.info("Busca paginada concluída: {} UBS em {} páginas", todasUbs.size(), paginaAtual + 1);
         return todasUbs;
-    }
-
-    /**
-     * Busca UBS próximas ao CEP informado
-     */
-    public List<UnidadeSaude> buscarUbsProximasPorCep(String cep, int limite) {
-        try {
-            log.info("Buscando UBS próximas do CEP: {}", cep);
-            
-            String cepLimpo = cep.replaceAll("[^0-9]", "");
-            ViaCepResponse viaCepResponse = viaCepClient.buscarPorCep(cepLimpo);
-            
-            if (viaCepResponse == null || viaCepResponse.getErro() != null && viaCepResponse.getErro()) {
-                log.warn("CEP não encontrado: {}", cep);
-                return Collections.emptyList();
-            }
-
-            String codigoIbge = viaCepResponse.getIbge();
-            Integer codigoMunicipio = Integer.parseInt(codigoIbge.substring(0, 6));
-            
-            // Usar busca paginada
-            List<EstabelecimentoSusResponse.Estabelecimento> todasUbs = buscarTodasUbsDoMunicipio(codigoMunicipio);
-            
-            if (todasUbs.isEmpty()) {
-                return Collections.emptyList();
-            }
-
-            // Obter coordenadas do CEP
-            Double[] coordenadasCep = obterCoordenadasAproximadas(cepLimpo, viaCepResponse);
-            
-            // Ordenar por distância e limitar
-            return todasUbs.stream()
-                    .sorted((a, b) -> {
-                        double distA = calcularDistancia(coordenadasCep[0], coordenadasCep[1], 
-                                a.getLatitude(), a.getLongitude());
-                        double distB = calcularDistancia(coordenadasCep[0], coordenadasCep[1], 
-                                b.getLatitude(), b.getLongitude());
-                        return Double.compare(distA, distB);
-                    })
-                    .limit(limite)
-                    .map(this::estabelecimentoToDomain)
-                    .collect(Collectors.toList());
-
-        } catch (Exception e) {
-            log.error("Erro ao buscar UBS próximas do CEP {}: {}", cep, e.getMessage());
-            return Collections.emptyList();
-        }
     }
 
     /**

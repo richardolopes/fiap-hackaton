@@ -24,42 +24,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface EstabelecimentoSusClient {
 
     @GetMapping("/cnes/estabelecimentos")
-    EstabelecimentoSusResponse buscarEstabelecimentos(
-        @RequestParam("limit") int limit,
-        @RequestParam("offset") int offset
-    );
-
-    @GetMapping("/cnes/estabelecimentos")
-    EstabelecimentoSusResponse buscarPorCodigoCnes(
-        @RequestParam("codigo_cnes") Integer codigoCnes,
-        @RequestParam("limit") int limit
-    );
-
-    @GetMapping("/cnes/estabelecimentos")
-    EstabelecimentoSusResponse buscarPorMunicipio(
-        @RequestParam("codigo_municipio") Integer codigoMunicipio,
-        @RequestParam("codigo_tipo_unidade") Integer codigoTipoUnidade,
-        @RequestParam("limit") int limit
-    );
-
-    @GetMapping("/cnes/estabelecimentos")
     EstabelecimentoSusResponse buscarPorMunicipioComOffset(
         @RequestParam("codigo_municipio") Integer codigoMunicipio,
         @RequestParam("codigo_tipo_unidade") Integer codigoTipoUnidade,
         @RequestParam("limit") int limit,
         @RequestParam("offset") int offset
-    );
-
-    @GetMapping("/cnes/estabelecimentos")
-    EstabelecimentoSusResponse buscarPorUf(
-        @RequestParam("codigo_uf") Integer codigoUf,
-        @RequestParam("codigo_tipo_unidade") Integer codigoTipoUnidade,
-        @RequestParam("limit") int limit
-    );
-
-    @GetMapping("/cnes/estabelecimentos")
-    EstabelecimentoSusResponse buscarPorCep(
-        @RequestParam("codigo_cep_estabelecimento") String cep,
-        @RequestParam("limit") int limit
     );
 }

@@ -19,18 +19,4 @@ public class EspecialidadeMapper {
                 .tempoConsultaMinutos(apiResponse.getTempoConsultaMinutos())
                 .build();
     }
-    
-    public EspecialidadeApiResponse toApiResponse(Especialidade domain) {
-        if (domain == null) {
-            return null;
-        }
-        
-        EspecialidadeApiResponse response = new EspecialidadeApiResponse();
-        response.setId(domain.getId());
-        response.setNome(domain.getNome());
-        response.setDescricao(domain.getDescricao());
-        response.setTempoConsultaMinutos(domain.getTempoConsultaMinutos());
-        
-        return response;
-    }
 }

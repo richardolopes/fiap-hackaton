@@ -13,19 +13,6 @@ public interface AgendamentoGateway {
     
     Optional<Agendamento> buscarPorId(Long id);
     
-    List<Agendamento> buscarPorPacienteId(Long pacienteId);
-    
-    List<Agendamento> buscarPorProfissionalId(Long profissionalId);
-    
-    List<Agendamento> buscarPorCodigoCnesUnidade(String codigoCnesUnidade);
-    
-    List<Agendamento> buscarPorPacienteIdEStatus(Long pacienteId, StatusAgendamento status);
-    
-    List<Agendamento> buscarAgendamentosProfissionalNoPeriodo(
-            Long profissionalId, LocalDateTime inicio, LocalDateTime fim);
-    
     boolean existeAgendamentoProfissionalNoHorario(
             Long profissionalId, LocalDateTime dataHora, List<StatusAgendamento> statusExcluidos);
-    
-    void deletar(Long id);
 }

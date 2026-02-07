@@ -32,53 +32,9 @@ public class ProfissionalClientGateway implements ProfissionalGateway {
     }
     
     @Override
-    public List<Profissional> buscarPorCodigoCnesUnidade(String codigoCnes) {
-        try {
-            return client.buscarPorUnidade(codigoCnes).stream()
-                    .map(mapper::toDomain)
-                    .collect(Collectors.toList());
-        } catch (Exception e) {
-            return List.of();
-        }
-    }
-    
-    @Override
     public List<Profissional> buscarPorEspecialidadeId(Long especialidadeId) {
         try {
             return client.buscarPorEspecialidade(especialidadeId).stream()
-                    .map(mapper::toDomain)
-                    .collect(Collectors.toList());
-        } catch (Exception e) {
-            return List.of();
-        }
-    }
-    
-    @Override
-    public List<Profissional> buscarPorCodigoCnesUnidadeEEspecialidadeId(String codigoCnes, Long especialidadeId) {
-        try {
-            return client.buscarPorEspecialidadeEUnidade(especialidadeId, codigoCnes).stream()
-                    .map(mapper::toDomain)
-                    .collect(Collectors.toList());
-        } catch (Exception e) {
-            return List.of();
-        }
-    }
-    
-    @Override
-    public List<Profissional> listarTodos() {
-        try {
-            return client.buscarTodos().stream()
-                    .map(mapper::toDomain)
-                    .collect(Collectors.toList());
-        } catch (Exception e) {
-            return List.of();
-        }
-    }
-    
-    @Override
-    public List<Profissional> listarAtivos() {
-        try {
-            return client.buscarPorAtivo(true).stream()
                     .map(mapper::toDomain)
                     .collect(Collectors.toList());
         } catch (Exception e) {

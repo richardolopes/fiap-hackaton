@@ -2,7 +2,6 @@ package br.gov.sus.sus.domain.gateway;
 
 import br.gov.sus.sus.domain.entity.Especialidade;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -12,8 +11,4 @@ import java.util.Optional;
 public interface EspecialidadeGateway {
     
     Optional<Especialidade> buscarPorId(Long id);
-    
-    List<Especialidade> listarAtivas();
-    
-    List<Especialidade> listarTodas();
 }

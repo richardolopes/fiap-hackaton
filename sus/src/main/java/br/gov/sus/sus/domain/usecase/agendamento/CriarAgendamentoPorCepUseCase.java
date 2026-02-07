@@ -5,7 +5,6 @@ import br.gov.sus.sus.domain.entity.*;
 import br.gov.sus.sus.domain.enums.StatusAgendamento;
 import br.gov.sus.sus.domain.enums.TipoAtendimento;
 import br.gov.sus.sus.domain.gateway.*;
-import br.gov.sus.sus.infrastructure.client.gateway.UnidadeSaudeClientGateway;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,7 +21,7 @@ public class CriarAgendamentoPorCepUseCase {
     private final AgendamentoGateway agendamentoGateway;
     private final PacienteGateway pacienteGateway;
     private final ProfissionalGateway profissionalGateway;
-    private final UnidadeSaudeClientGateway unidadeSaudeGateway;
+    private final UnidadeSaudeGateway unidadeSaudeGateway;
     private final EspecialidadeGateway especialidadeGateway;
 
     public Agendamento executar(Long pacienteId, String cep, Long especialidadeId,

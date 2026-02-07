@@ -25,18 +25,4 @@ public class ProfissionalMapper {
                 .codigoCnesUnidade(apiResponse.getCodigoCnesUnidade())
                 .build();
     }
-    
-    public ProfissionalApiResponse toApiResponse(Profissional domain) {
-        if (domain == null) {
-            return null;
-        }
-        
-        ProfissionalApiResponse response = new ProfissionalApiResponse();
-        response.setId(domain.getId());
-        response.setNomeCompleto(domain.getNomeCompleto());
-        response.setRegistroConselho(domain.getRegistroConselho());
-        response.setCodigoCnesUnidade(domain.getCodigoCnesUnidade());
-        
-        return response;
-    }
 }

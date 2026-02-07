@@ -11,23 +11,9 @@ import java.util.List;
 @FeignClient(name = "profissionalClient", url = "${api.mock-server.url}")
 public interface ProfissionalClient {
 
-    @GetMapping("/profissionais")
-    List<ProfissionalApiResponse> buscarTodos();
-
     @GetMapping("/profissionais/{id}")
     ProfissionalApiResponse buscarPorId(@PathVariable("id") Long id);
 
     @GetMapping("/profissionais")
     List<ProfissionalApiResponse> buscarPorEspecialidade(@RequestParam("especialidadeId") Long especialidadeId);
-
-    @GetMapping("/profissionais")
-    List<ProfissionalApiResponse> buscarPorUnidade(@RequestParam("codigoCnesUnidade") String codigoCnes);
-
-    @GetMapping("/profissionais")
-    List<ProfissionalApiResponse> buscarPorEspecialidadeEUnidade(
-            @RequestParam("especialidadeId") Long especialidadeId,
-            @RequestParam("codigoCnesUnidade") String codigoCnes);
-
-    @GetMapping("/profissionais")
-    List<ProfissionalApiResponse> buscarPorAtivo(@RequestParam("ativo") boolean ativo);
 }

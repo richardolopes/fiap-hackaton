@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Component
 public class AgendamentoGatewayImpl implements AgendamentoGateway {
@@ -51,52 +50,10 @@ public class AgendamentoGatewayImpl implements AgendamentoGateway {
     }
     
     @Override
-    public List<Agendamento> buscarPorPacienteId(Long pacienteId) {
-        return repository.findByPacienteId(pacienteId).stream()
-                .map(mapper::toDomain)
-                .collect(Collectors.toList());
-    }
-    
-    @Override
-    public List<Agendamento> buscarPorProfissionalId(Long profissionalId) {
-        return repository.findByProfissionalId(profissionalId).stream()
-                .map(mapper::toDomain)
-                .collect(Collectors.toList());
-    }
-    
-    @Override
-    public List<Agendamento> buscarPorCodigoCnesUnidade(String codigoCnesUnidade) {
-        return repository.findByCodigoCnesUnidade(codigoCnesUnidade).stream()
-                .map(mapper::toDomain)
-                .collect(Collectors.toList());
-    }
-    
-    @Override
-    public List<Agendamento> buscarPorPacienteIdEStatus(Long pacienteId, br.gov.sus.sus.domain.enums.StatusAgendamento status) {
-        return repository.findByPacienteIdAndStatus(pacienteId, status).stream()
-                .map(mapper::toDomain)
-                .collect(Collectors.toList());
-    }
-    
-    @Override
-    public List<Agendamento> buscarAgendamentosProfissionalNoPeriodo(
-            Long profissionalId, LocalDateTime inicio, LocalDateTime fim) {
-        return repository.findByDataHoraAgendamentoBetween(inicio, fim).stream()
-                .filter(a -> a.getProfissionalId().equals(profissionalId))
-                .map(mapper::toDomain)
-                .collect(Collectors.toList());
-    }
-    
-    @Override
     public boolean existeAgendamentoProfissionalNoHorario(
             Long profissionalId, LocalDateTime dataHora, List<br.gov.sus.sus.domain.enums.StatusAgendamento> statusExcluidos) {
         return repository.findByProfissionalIdAndDataHoraAgendamento(profissionalId, dataHora)
                 .stream()
                 .anyMatch(a -> !statusExcluidos.contains(a.getStatus()));
-    }
-    
-    @Override
-    public void deletar(Long id) {
-        repository.deleteById(id);
     }
 }
