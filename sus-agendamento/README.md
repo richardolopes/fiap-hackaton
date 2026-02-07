@@ -1,308 +1,167 @@
-# 🏥 SUS Agendamento - Sistema de Agendamento de Consultas e Exames# 🏥 SUS Agendamento - Sistema de Agendamento de Consultas
+# 🏥 SUS Agendamento - Sistema de Agendamento de Consultas e Exames
 
-## 📋 Sobre o Projeto## 📋 Sobre o Projeto
+## 📋 Sobre o Projeto
 
-Sistema de agendamento de consultas e exames para o SUS (Sistema Único de Saúde), desenvolvido como MVP para o *
-*Hackathon FIAP**. O projeto utiliza **Clean Architecture** e integra múltiplas fontes de dados mockadas para simular um
-ambiente realista de integração com sistemas do SUS.Sistema de agendamento de consultas para o SUS (Sistema Único de
-Saúde), desenvolvido como MVP para o Hackathon FIAP. O projeto utiliza Clean Architecture e integra múltiplas fontes de
-dados para simular um ambiente realista.
+Sistema de agendamento de consultas e exames para o SUS (Sistema Único de Saúde), desenvolvido como MVP para o **Hackathon FIAP**. O projeto utiliza **Clean Architecture** e integra múltiplas fontes de dados mockadas para simular um ambiente realista de integração com sistemas do SUS.
 
-### Funcionalidades Principais## 🏗️ Arquitetura
+### Funcionalidades Principais
 
-- ✅ Agendamento de consultas presenciais e telemedicina### Clean Architecture
-
+- ✅ Agendamento de consultas presenciais e telemedicina
 - ✅ Confirmação de agendamentos
-
-- ✅ Cancelamento por paciente ou unidade de saúdeO projeto segue os princípios de Clean Architecture:
-
+- ✅ Cancelamento por paciente ou unidade de saúde
 - ✅ Reagendamento de consultas
+- ✅ Consulta de horários disponíveis
+- ✅ Busca de agendamentos por paciente ou unidade
+- ✅ Integração com dados de especialidades, profissionais e unidades de saúde
 
-- ✅ Consulta de horários disponíveis```
+---
 
-- ✅ Busca de agendamentos por paciente ou unidadesrc/main/java/br/gov/sus/sus/
+## 🏗️ Arquitetura
 
-- ✅ Integração com dados de especialidades, profissionais e unidades de saúde├── domain/ # Camada de Domínio
+### Clean Architecture
 
-│ ├── entity/ # Entidades de negócio
-
----│ ├── enums/ # Enumerações
-
-│ ├── gateway/ # Interfaces dos gateways
-
-## 🏗️ Arquitetura│ └── usecase/ # Casos de uso
-
-├── infrastructure/ # Camada de Infraestrutura
-
-### Clean Architecture│ ├── client/ # Feign clients (APIs externas)
-
-│ │ ├── dto/ # DTOs das APIs
-
-O projeto segue os princípios de **Clean Architecture**, separando responsabilidades em camadas:│ │ └── mapper/ #
-Mapeadores API -> Domain
-
-│ ├── config/ # Configurações
-
-```│   ├── gateway/              # Implementações dos gateways
-
-src/main/java/br/gov/sus/sus/│   └── persistence/          # JPA (banco local)
-
-├── domain/                    # 🎯 Camada de Domínio (regras de negócio)│       ├── entity/          # Entidades JPA
-
-│   ├── entity/               # Entidades de negócio puras│       ├── gateway/         # Impl. gateways JPA
-
-│   ├── enums/                # Enumerações (StatusAgendamento, TipoAtendimento)│       ├── mapper/          # Mapeadores JPA
-
-│   ├── gateway/              # Interfaces dos gateways (portas)│       └── repository/      # Repositórios JPA
-
-│   └── usecase/              # Casos de uso (regras de negócio)└── application/              # Camada de Aplicação
-
-│    ├── controller/           # Controllers REST
-
-├── infrastructure/           # 🔧 Camada de Infraestrutura    ├── dto/                  # DTOs request/response
-
-│   ├── client/               # Feign clients (APIs externas mockadas)    └── exception/            # Tratamento de exceções
-
-│   │   ├── dto/             # DTOs das respostas das APIs```
-
-│   │   └── mapper/          # Mapeadores API Response -> Domain Entity
-
-│   ├── config/               # Configurações Spring### Fontes de Dados
-
-│   ├── gateway/              # Implementações dos gateways (APIs externas)
-
-│   └── persistence/          # JPA (banco de dados local)| Dados | Fonte | Descrição |
-
-│       ├── entity/          # Entidades JPA|-------|-------|-----------|
-
-│       ├── gateway/         # Implementação gateway de Agendamento| **Unidades de Saúde** | API DataSUS (Real) | `https://apidadosabertos.saude.gov.br` |
-
-│       ├── mapper/          # Mapeadores JPA <-> Domain| **Especialidades** | json-server (Mock) | `http://localhost:3000/especialidades` |
-
-│       └── repository/      # Repositórios Spring Data JPA| **Profissionais** | json-server (Mock) | `http://localhost:3000/profissionais` |
-
-│| **Horários** | json-server (Mock) | `http://localhost:3000/horarios` |
-
-└── application/              # 📱 Camada de Aplicação| **Pacientes** | json-server (Mock) | `http://localhost:3000/pacientes` |
-
-    ├── controller/           # Controllers REST API| **Agendamentos** | Banco H2 (Local) | Persistido localmente |
-
-    ├── dto/                  # DTOs de request e response
-
-    │   ├── request/## 🚀 Como Executar
-
-    │   └── response/
-
-    └── exception/            # Tratamento global de exceções### Pré-requisitos
+O projeto segue os princípios de **Clean Architecture**, separando responsabilidades em camadas:
 
 ```
+src/main/java/br/gov/sus/sus/
+├── domain/                    # 🎯 Camada de Domínio (regras de negócio)
+│   ├── entity/               # Entidades de negócio puras
+│   ├── enums/                # Enumerações (StatusAgendamento, TipoAtendimento)
+│   ├── gateway/              # Interfaces dos gateways (portas)
+│   └── usecase/              # Casos de uso (regras de negócio)
+│
+├── infrastructure/           # 🔧 Camada de Infraestrutura
+│   ├── client/               # Feign clients (APIs externas mockadas)
+│   │   ├── dto/             # DTOs das respostas das APIs
+│   │   └── mapper/          # Mapeadores API Response -> Domain Entity
+│   ├── config/               # Configurações Spring
+│   ├── gateway/              # Implementações dos gateways (APIs externas)
+│   └── persistence/          # JPA (banco de dados local)
+│       ├── entity/          # Entidades JPA
+│       ├── gateway/         # Implementação gateway de Agendamento
+│       ├── mapper/          # Mapeadores JPA <-> Domain
+│       └── repository/      # Repositórios Spring Data JPA
+│
+└── application/              # 📱 Camada de Aplicação
+    ├── controller/           # Controllers REST API
+    ├── dto/                  # DTOs de request e response
+    │   ├── request/
+    │   └── response/
+    └── exception/            # Tratamento global de exceções
+```
+
+### Fontes de Dados
+
+| Dados | Fonte | Descrição |
+|-------|-------|-----------|
+| **Unidades de Saúde** | API DataSUS (Real) | `https://apidadosabertos.saude.gov.br` |
+| **Especialidades** | json-server (Mock) | `http://localhost:3000/especialidades` |
+| **Profissionais** | json-server (Mock) | `http://localhost:3000/profissionais` |
+| **Pacientes** | json-server (Mock) | `http://localhost:3000/pacientes` |
+| **Horários** | json-server (Mock) | `http://localhost:3000/horarios` |
+| **Agendamentos** | Banco H2 (Local) | Persistido localmente |
+
+---
+
+## 🚀 Como Executar
+
+### Pré-requisitos
 
 - Java 21+
-
-### Fontes de Dados- Maven 3.9+
-
+- Maven 3.9+
 - Node.js 18+ (para json-server)
 
-| Dados | Fonte | Endpoint |
-
-|-------|-------|----------|### 1. Iniciar o Mock Server (json-server)
-
-| **Especialidades** | json-server (Mock) | `http://localhost:3000/especialidades` |
-
-| **Profissionais** | json-server (Mock) | `http://localhost:3000/profissionais` |```bash
-
-| **Pacientes** | json-server (Mock) | `http://localhost:3000/pacientes` |cd mock-server
-
-| **Unidades de Saúde** | json-server (Mock) | `http://localhost:3000/unidades` |npm install
-
-| **Horários Disponíveis** | json-server (Mock) | `http://localhost:3000/horarios` |npm start
-
-| **Agendamentos** | H2 Database (Local) | Persistido em memória |```
-
----O json-server estará disponível em `http://localhost:3000`
-
-## 🚀 Como Executar### 2. Iniciar a Aplicação Spring Boot
-
-### Pré-requisitos```bash
-
-./mvnw spring-boot:run
-
-- **Java 21** (JDK)```
-
-- **Node.js** e **npm** (para json-server)
-
-- **Maven** (ou usar o wrapper `mvnw`)A aplicação estará disponível em `http://localhost:8080`
-
-### 1. Instalar dependências do mock-server### 3. Acessar a Documentação da API
-
-```bash- Swagger UI: `http://localhost:8080/swagger-ui.html`
-
-cd mock-server- H2 Console: `http://localhost:8080/h2-console`
-
-npm install - JDBC URL: `jdbc:h2:mem:susdb`
-
-```  - Username: `sa`
-
-- Password: (vazio)
-
-### 2. Iniciar o Mock Server (json-server)
-
-## 📚 Endpoints da API
+### 1. Iniciar o Mock Server (json-server)
 
 ```bash
+cd mock-server
+npm install
+npm start
+```
 
-cd mock-server### Pacientes (via json-server)
+O json-server estará disponível em `http://localhost:3000`
 
-npx json-server db.json --port 3000
+### 2. Iniciar a Aplicação Spring Boot
 
-```| Método | Endpoint | Descrição |
-
-|--------|----------|-----------|
-
-O servidor ficará disponível em `http://localhost:3000`| GET | `/api/pacientes` | Listar todos os pacientes |
-
-| GET | `/api/pacientes/{id}` | Buscar paciente por ID |
-
-### 3. Iniciar a Aplicação Spring Boot| GET | `/api/pacientes/cpf/{cpf}` | Buscar paciente por CPF |
-
-| GET | `/api/pacientes/cartao-sus/{cartaoSus}` | Buscar paciente por Cartão SUS |
-
-Em outro terminal:| POST | `/api/pacientes` | Cadastrar novo paciente |
-
-| PUT | `/api/pacientes/{id}` | Atualizar paciente |
-
-```bash| DELETE | `/api/pacientes/{id}` | Remover paciente |
-
+```bash
 ./mvnw spring-boot:run
+```
 
-```### Especialidades (via json-server)
+A aplicação estará disponível em `http://localhost:8080`
 
+### 3. Acessar a Documentação da API
 
+- Swagger UI: `http://localhost:8080/swagger-ui.html`
+- H2 Console: `http://localhost:8080/h2-console`
+  - JDBC URL: `jdbc:h2:mem:susdb`
+  - Username: `sa`
+  - Password: (vazio)
 
-A API ficará disponível em `http://localhost:8080`| Método | Endpoint | Descrição |
-
-|--------|----------|-----------|
-
----| GET | `/api/especialidades` | Listar todas as especialidades |
-
-| GET | `/api/especialidades/{id}` | Buscar especialidade por ID |
+---
 
 ## 📚 Documentação da API
 
-### Profissionais (via json-server)
-
 ### Base URL
 
-```| Método | Endpoint | Descrição |
+```
+http://localhost:8080/api/v1
+```
 
-http://localhost:8080/api/v1|--------|----------|-----------|
-
-```| GET | `/api/profissionais` | Listar todos os profissionais |
-
-| GET | `/api/profissionais/{id}` | Buscar profissional por ID |
-
----| GET | `/api/profissionais/unidade/{codigoCnes}` | Listar por unidade |
-
-| GET | `/api/profissionais/especialidade/{id}` | Listar por especialidade |
+---
 
 ### 🗓️ Agendamentos
 
-### Unidades de Saúde (via API DataSUS)
-
 #### Criar Agendamento
 
-```http| Método | Endpoint | Descrição |
+```http
+POST /agendamentos
+Content-Type: application/json
 
-POST /agendamentos|--------|----------|-----------|
-
-Content-Type: application/json| GET | `/api/unidades/{codigoCnes}` | Buscar por código CNES |
-
-| GET | `/api/unidades/uf/{codigoUf}` | Listar por UF |
-
-{| GET | `/api/unidades/municipio/{codigoMunicipio}` | Listar por município |
-
+{
     "pacienteId": 1,
-
-    "profissionalId": 1,### Agendamentos
-
+    "profissionalId": 1,
     "codigoCnesUnidade": "2269473",
-
-    "especialidadeId": 1,| Método | Endpoint | Descrição |
-
-    "dataHoraAgendamento": "2026-02-15T10:00:00",|--------|----------|-----------|
-
-    "tipoAtendimento": "PRESENCIAL",| GET | `/api/agendamentos` | Listar todos os agendamentos |
-
-    "observacoes": "Primeira consulta"| GET | `/api/agendamentos/{id}` | Buscar agendamento por ID |
-
-}| GET | `/api/agendamentos/paciente/{pacienteId}` | Listar por paciente |
-
-```| POST | `/api/agendamentos` | Criar novo agendamento |
-
-| PUT | `/api/agendamentos/{id}/confirmar` | Confirmar agendamento |
-
-**Tipos de Atendimento:** `PRESENCIAL`, `TELEMEDICINA`| PUT | `/api/agendamentos/{id}/cancelar` | Cancelar agendamento |
-
-
-
-**Response (201 Created):**## 🧪 Dados de Teste
-
-```json
-
-{### Mock Server (db.json)
-
-    "id": 1,
-
-    "nomePaciente": "José da Silva",O arquivo `mock-server/db.json` contém dados de exemplo para:
-
-    "cpfPaciente": "12345678901",- 10 especialidades médicas
-
-    "cartaoSusPaciente": "123456789012345",- 18 profissionais de saúde
-
-    "nomeProfissional": "Dr. João Silva",- Horários de atendimento de segunda a sexta
-
-    "registroConselhoProfissional": "CRM-SP 123456",- 10 pacientes cadastrados
-
-    "nomeUnidadeSaude": "UBS Jardim São Paulo",
-
-    "enderecoUnidadeSaude": "Rua das Flores, 100",### Banco de Dados (data.sql)
-
-    "nomeEspecialidade": "Clínica Geral",
-
-    "dataHoraAgendamento": "2026-02-15T10:00:00",O arquivo `src/main/resources/data.sql` está vazio pois todos os dados de mock estão no json-server.
-
-    "status": "AGENDADO",Apenas os agendamentos são armazenados no banco H2 local.
-
+    "especialidadeId": 1,
+    "dataHoraAgendamento": "2026-02-15T10:00:00",
     "tipoAtendimento": "PRESENCIAL",
-
-    "observacoes": "Primeira consulta",## 🛠️ Tecnologias Utilizadas
-
-    "dataCriacao": "2026-02-05T17:31:30.120226956"
-
-}- **Java 21**
-
-```- **Spring Boot 3.2**
-
-- **Spring Data JPA**
-
----- **Spring Cloud OpenFeign**
-
-- **H2 Database** (desenvolvimento)
-
-#### Buscar Agendamento por ID- **PostgreSQL** (produção)
-
-```http- **json-server** (mock de APIs)
-
-GET /agendamentos/{id}- **SpringDoc OpenAPI** (Swagger)
-
+    "observacoes": "Primeira consulta"
+}
 ```
 
-## 📝 Licença
+**Tipos de Atendimento:** `PRESENCIAL`, `TELEMEDICINA`
+
+**Response (201 Created):**
+
+```json
+{
+    "id": 1,
+    "nomePaciente": "José da Silva",
+    "cpfPaciente": "12345678901",
+    "cartaoSusPaciente": "123456789012345",
+    "nomeProfissional": "Dr. João Silva",
+    "registroConselhoProfissional": "CRM-SP 123456",
+    "nomeUnidadeSaude": "UBS Jardim São Paulo",
+    "enderecoUnidadeSaude": "Rua das Flores, 100",
+    "nomeEspecialidade": "Clínica Geral",
+    "dataHoraAgendamento": "2026-02-15T10:00:00",
+    "status": "AGENDADO",
+    "tipoAtendimento": "PRESENCIAL",
+    "observacoes": "Primeira consulta",
+    "dataCriacao": "2026-02-05T17:31:30.120226956"
+}
+```
+
+---
+
+#### Buscar Agendamento por ID
+
+```http
+GET /agendamentos/{id}
+```
 
 **Response (200 OK):**
 
-```jsonEste projeto foi desenvolvido para o Hackathon FIAP 2026 - Inovação no SUS.
-
+```json
 {
     "id": 1,
     "nomePaciente": "José da Silva",
@@ -651,11 +510,10 @@ DB_PASSWORD=sua_senha
 ## 📁 Estrutura de Arquivos
 
 ```
-sus/
+sus-agendamento/
 ├── pom.xml                          # Dependências Maven
 ├── mvnw                             # Maven Wrapper
 ├── README.md                        # Esta documentação
-├── start-and-test.sh               # Script de teste
 │
 ├── mock-server/                     # Mock das APIs externas
 │   ├── package.json
@@ -669,7 +527,7 @@ sus/
     │   │   ├── domain/
     │   │   └── infrastructure/
     │   └── resources/
-    │       ├── application.yaml
+    │       ├── application.yml
     │       └── data.sql
     └── test/
         └── java/
@@ -679,7 +537,7 @@ sus/
 
 ## 🔧 Configuração
 
-### application.yaml
+### application.yml
 
 ```yaml
 server:
