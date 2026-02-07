@@ -1,0 +1,60 @@
+spring:
+  application:
+    name: sus-agendamento
+  
+  # Configuração H2 Database (desenvolvimento)
+  # Apenas para Pacientes e Agendamentos
+  datasource:
+    url: jdbc:h2:mem:susdb
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  
+  # Habilitar console H2
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+    defer-datasource-initialization: true
+
+# Configurações de agendamento
+agendamento:
+  tempo-consulta-minutos: 30
+  horario-inicio: "07:00"
+  horario-fim: "18:00"
+
+# API Externa do SUS (Unidades de Saúde)
+sus:
+  api:
+    base-url: https://apidadosabertos.saude.gov.br
+
+# API Mock Server (Profissionais, Especialidades, Horários)
+api:
+  mock-server:
+    url: http://localhost:3000
+
+# Configuração do Feign
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: full
+
+server:
+  port: 8080
+
+logging:
+  level:
+    br.com.fiap.sus: DEBUG
+    feign: DEBUG
