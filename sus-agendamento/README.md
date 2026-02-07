@@ -25,29 +25,29 @@ O projeto segue os princípios de **Clean Architecture**, separando responsabili
 ```
 src/main/java/br/gov/sus/sus/
 ├── domain/                    # 🎯 Camada de Domínio (regras de negócio)
-│   ├── entity/               # Entidades de negócio puras
-│   ├── enums/                # Enumerações (StatusAgendamento, TipoAtendimento)
-│   ├── gateway/              # Interfaces dos gateways (portas)
-│   └── usecase/              # Casos de uso (regras de negócio)
+│   ├── entity/                # Entidades de negócio puras
+│   ├── enums/                 # Enumerações (StatusAgendamento, TipoAtendimento)
+│   ├── gateway/               # Interfaces dos gateways (portas)
+│   └── usecase/               # Casos de uso (regras de negócio)
 │
-├── infrastructure/           # 🔧 Camada de Infraestrutura
-│   ├── client/               # Feign clients (APIs externas mockadas)
-│   │   ├── dto/             # DTOs das respostas das APIs
-│   │   └── mapper/          # Mapeadores API Response -> Domain Entity
-│   ├── config/               # Configurações Spring
-│   ├── gateway/              # Implementações dos gateways (APIs externas)
-│   └── persistence/          # JPA (banco de dados local)
-│       ├── entity/          # Entidades JPA
-│       ├── gateway/         # Implementação gateway de Agendamento
-│       ├── mapper/          # Mapeadores JPA <-> Domain
-│       └── repository/      # Repositórios Spring Data JPA
+├── infrastructure/            # 🔧 Camada de Infraestrutura
+│   ├── client/                # Feign clients (APIs externas mockadas)
+│   │   ├── dto/               # DTOs das respostas das APIs
+│   │   └── mapper/            # Mapeadores API Response -> Domain Entity
+│   ├── config/                # Configurações Spring
+│   ├── gateway/               # Implementações dos gateways (APIs externas)
+│   └── persistence/           # JPA (banco de dados local)
+│       ├── entity/            # Entidades JPA
+│       ├── gateway/           # Implementação gateway de Agendamento
+│       ├── mapper/            # Mapeadores JPA <-> Domain
+│       └── repository/        # Repositórios Spring Data JPA
 │
-└── application/              # 📱 Camada de Aplicação
-    ├── controller/           # Controllers REST API
-    ├── dto/                  # DTOs de request e response
+└── application/               # 📱 Camada de Aplicação
+    ├── controller/            # Controllers REST API
+    ├── dto/                   # DTOs de request e response
     │   ├── request/
     │   └── response/
-    └── exception/            # Tratamento global de exceções
+    └── exception/             # Tratamento global de exceções
 ```
 
 ### Fontes de Dados
