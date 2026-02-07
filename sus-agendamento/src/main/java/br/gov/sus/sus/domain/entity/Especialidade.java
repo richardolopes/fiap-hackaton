@@ -20,12 +20,10 @@ public class Especialidade {
         this.ativo = ativo;
     }
 
-    // Builder pattern
     public static Builder builder() {
         return new Builder();
     }
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }

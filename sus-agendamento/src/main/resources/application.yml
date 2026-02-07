@@ -2,27 +2,19 @@ spring:
   application:
     name: sus-agendamento
   
-  # Configuração H2 Database (desenvolvimento)
-  # Apenas para Pacientes e Agendamentos
   datasource:
-    url: jdbc:h2:mem:susdb
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
-  
-  # Habilitar console H2
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/susdb}
+    username: ${DATABASE_USERNAME:sus}
+    password: ${DATABASE_PASSWORD:sus123}
+    driver-class-name: org.postgresql.Driver
   
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: ${SHOW_SQL:true}
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.H2Dialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     defer-datasource-initialization: true
 
@@ -40,7 +32,7 @@ sus:
 # API Mock Server (Profissionais, Especialidades, Horários)
 api:
   mock-server:
-    url: http://localhost:3000
+    url: ${MOCK_SERVER_URL:http://localhost:3000}
 
 # Configuração do Feign
 feign:

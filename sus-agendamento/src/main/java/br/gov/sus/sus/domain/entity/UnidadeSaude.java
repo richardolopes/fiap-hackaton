@@ -33,12 +33,10 @@ public class UnidadeSaude {
         this.tipoUnidade = tipoUnidade;
     }
 
-    // Builder pattern
     public static Builder builder() {
         return new Builder();
     }
 
-    // Getters e Setters
     public String getCodigoCnes() {
         return codigoCnes;
     }

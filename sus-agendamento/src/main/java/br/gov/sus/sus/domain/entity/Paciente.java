@@ -39,12 +39,10 @@ public class Paciente {
         this.dataCadastro = dataCadastro;
     }
 
-    // Builder pattern
     public static Builder builder() {
         return new Builder();
     }
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }

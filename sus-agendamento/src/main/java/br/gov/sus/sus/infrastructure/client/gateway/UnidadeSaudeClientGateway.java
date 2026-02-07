@@ -35,7 +35,6 @@ public class UnidadeSaudeClientGateway implements UnidadeSaudeGateway {
     private final ViaCepClient viaCepClient;
     private final NominatimClient nominatimClient;
 
-    // Cache de UBS encontradas - a API do SUS não funciona corretamente para busca por CNES
     private final Map<String, UnidadeSaude> cacheUnidades = new ConcurrentHashMap<>();
 
     public UnidadeSaudeClientGateway(EstabelecimentoSusClient estabelecimentoClient,
@@ -48,7 +47,6 @@ public class UnidadeSaudeClientGateway implements UnidadeSaudeGateway {
 
     @Override
     public Optional<UnidadeSaude> buscarPorCodigoCnes(String codigoCnes) {
-        // Primeiro verifica no cache (a API do SUS não funciona corretamente para busca por CNES)
         if (cacheUnidades.containsKey(codigoCnes)) {
             log.info("UBS encontrada no cache: {}", codigoCnes);
             return Optional.of(cacheUnidades.get(codigoCnes));
@@ -57,8 +55,6 @@ public class UnidadeSaudeClientGateway implements UnidadeSaudeGateway {
         log.warn("UBS não encontrada no cache para código CNES: {}. " +
                 "A API do SUS não suporta busca confiável por CNES.", codigoCnes);
 
-        // Retorna uma unidade básica com apenas o código CNES
-        // Os dados completos devem ser obtidos via buscarUbsMaisProximaPorCep
         return Optional.of(UnidadeSaude.builder()
                 .codigoCnes(codigoCnes)
                 .nome("UBS - Código CNES: " + codigoCnes)
@@ -81,7 +77,6 @@ public class UnidadeSaudeClientGateway implements UnidadeSaudeGateway {
         try {
             log.info("Buscando UBS mais próxima do CEP: {}", cep);
 
-            // 1. Obter informações do CEP via ViaCEP
             String cepLimpo = cep.replaceAll("[^0-9]", "");
             ViaCepResponse viaCepResponse = viaCepClient.buscarPorCep(cepLimpo);
 
@@ -94,11 +89,9 @@ public class UnidadeSaudeClientGateway implements UnidadeSaudeGateway {
             Integer codigoMunicipio = Integer.parseInt(codigoIbge.substring(0, 6)); // Remove dígito verificador
             log.info("CEP {} pertence ao município IBGE: {} ({})", cep, codigoMunicipio, viaCepResponse.getLocalidade());
 
-            // 2. Obter coordenadas do CEP via Nominatim
             Double[] coordenadasCep = obterCoordenadasAproximadas(cepLimpo, viaCepResponse);
             log.info("Coordenadas do CEP: lat={}, lon={}", coordenadasCep[0], coordenadasCep[1]);
 
-            // 3. Buscar UBS do município com paginação (API limita a 20 por página)
             List<EstabelecimentoSusResponse.Estabelecimento> todasUbs = buscarTodasUbsDoMunicipio(codigoMunicipio);
 
             if (todasUbs.isEmpty()) {
@@ -108,7 +101,6 @@ public class UnidadeSaudeClientGateway implements UnidadeSaudeGateway {
 
             log.info("Total de {} UBS encontradas no município {}", todasUbs.size(), viaCepResponse.getLocalidade());
 
-            // 4. Encontrar a UBS mais próxima baseada nas coordenadas
             EstabelecimentoSusResponse.Estabelecimento ubsMaisProxima = encontrarUbsMaisProxima(
                     todasUbs,
                     coordenadasCep[0],
@@ -116,7 +108,6 @@ public class UnidadeSaudeClientGateway implements UnidadeSaudeGateway {
             );
 
             if (ubsMaisProxima == null) {
-                // Se não conseguiu calcular distância, retorna a primeira UBS
                 ubsMaisProxima = todasUbs.get(0);
             }
 
@@ -125,7 +116,6 @@ public class UnidadeSaudeClientGateway implements UnidadeSaudeGateway {
                     ubsMaisProxima.getNomeFantasia(),
                     ubsMaisProxima.getBairroEstabelecimento());
 
-            // Converter para domain e cachear
             UnidadeSaude unidadeSaude = estabelecimentoToDomain(ubsMaisProxima);
             cacheUnidades.put(unidadeSaude.getCodigoCnes(), unidadeSaude);
             log.info("UBS adicionada ao cache: {}", unidadeSaude.getCodigoCnes());
@@ -145,8 +135,8 @@ public class UnidadeSaudeClientGateway implements UnidadeSaudeGateway {
     private List<EstabelecimentoSusResponse.Estabelecimento> buscarTodasUbsDoMunicipio(Integer codigoMunicipio) {
         List<EstabelecimentoSusResponse.Estabelecimento> todasUbs = new ArrayList<>();
         int offset = 0;
-        int limit = 20; // Limite máximo da API
-        int maxPaginas = 50; // Máximo de 1000 UBS (50 * 20)
+        int limit = 20;
+        int maxPaginas = 50;
         int paginaAtual = 0;
 
         while (paginaAtual < maxPaginas) {
@@ -159,13 +149,13 @@ public class UnidadeSaudeClientGateway implements UnidadeSaudeGateway {
                 );
 
                 if (response == null || response.getEstabelecimentos() == null || response.getEstabelecimentos().isEmpty()) {
-                    break; // Não há mais resultados
+                    break;
                 }
 
                 todasUbs.addAll(response.getEstabelecimentos());
 
                 if (response.getEstabelecimentos().size() < limit) {
-                    break; // Última página
+                    break;
                 }
 
                 offset += limit;
@@ -181,9 +171,6 @@ public class UnidadeSaudeClientGateway implements UnidadeSaudeGateway {
         return todasUbs;
     }
 
-    /**
-     * Encontra a UBS mais próxima das coordenadas informadas
-     */
     private EstabelecimentoSusResponse.Estabelecimento encontrarUbsMaisProxima(
             List<EstabelecimentoSusResponse.Estabelecimento> ubsList,
             Double latCep,
@@ -217,10 +204,10 @@ public class UnidadeSaudeClientGateway implements UnidadeSaudeGateway {
      */
     private double calcularDistancia(Double lat1, Double lon1, Double lat2, Double lon2) {
         if (lat1 == null || lon1 == null || lat2 == null || lon2 == null) {
-            return Double.MAX_VALUE; // Se não tem coordenadas, considera infinito
+            return Double.MAX_VALUE;
         }
 
-        final double R = 6371; // Raio da Terra em km
+        final double R = 6371;
 
         double latDistance = Math.toRadians(lat2 - lat1);
         double lonDistance = Math.toRadians(lon2 - lon1);
@@ -237,7 +224,6 @@ public class UnidadeSaudeClientGateway implements UnidadeSaudeGateway {
      * Se não conseguir, usa coordenadas aproximadas baseadas na UF.
      */
     private Double[] obterCoordenadasAproximadas(String cep, ViaCepResponse viaCep) {
-        // 1. Tentar obter coordenadas reais via Nominatim (OpenStreetMap)
         try {
             String cepFormatado = cep.substring(0, 5) + "-" + cep.substring(5);
             List<NominatimResponse> nominatimResults = nominatimClient.buscarPorCep(
@@ -258,7 +244,6 @@ public class UnidadeSaudeClientGateway implements UnidadeSaudeGateway {
             log.warn("Erro ao obter coordenadas via Nominatim para CEP {}: {}", cep, e.getMessage());
         }
 
-        // 2. Se Nominatim falhar, tentar buscar pelo endereço completo
         try {
             if (viaCep.getLogradouro() != null && viaCep.getLocalidade() != null) {
                 String endereco = String.format("%s, %s, %s, Brazil",
@@ -283,7 +268,6 @@ public class UnidadeSaudeClientGateway implements UnidadeSaudeGateway {
             log.warn("Erro ao obter coordenadas via Nominatim para endereço: {}", e.getMessage());
         }
 
-        // 3. Fallback: usar coordenadas padrão por UF
         log.warn("Usando coordenadas padrão para UF: {}", viaCep.getUf());
         Map<String, Double[]> coordenadasPadraoPorUf = new HashMap<>();
         coordenadasPadraoPorUf.put("SP", new Double[]{-23.5505, -46.6333}); // São Paulo
@@ -301,7 +285,6 @@ public class UnidadeSaudeClientGateway implements UnidadeSaudeGateway {
             return coordenadasPadraoPorUf.get(uf);
         }
 
-        // Coordenadas padrão (Brasil central)
         return new Double[]{-15.7942, -47.8822};
     }
 

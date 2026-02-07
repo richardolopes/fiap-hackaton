@@ -9,7 +9,6 @@ public class Profissional {
     private String codigoCnesUnidade;
     private Boolean ativo;
 
-    // Campos para enriquecimento (preenchidos opcionalmente)
     private Especialidade especialidade;
     private UnidadeSaude unidadeSaude;
 
@@ -26,12 +25,10 @@ public class Profissional {
         this.ativo = ativo;
     }
 
-    // Builder pattern
     public static Builder builder() {
         return new Builder();
     }
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }

@@ -30,32 +30,26 @@ public class CriarAgendamentoPorCepUseCase {
 
         log.info("Criando agendamento por CEP: {} para paciente: {}", cep, pacienteId);
 
-        // 1. Validar paciente
         Paciente paciente = pacienteGateway.buscarPorId(pacienteId)
                 .orElseThrow(() -> new BusinessException("Paciente não encontrado"));
 
-        // 2. Validar especialidade
         Especialidade especialidade = especialidadeGateway.buscarPorId(especialidadeId)
                 .orElseThrow(() -> new BusinessException("Especialidade não encontrada"));
 
-        // 3. Buscar UBS mais próxima do CEP usando API do SUS
         UnidadeSaude unidadeSaude = unidadeSaudeGateway.buscarUbsMaisProximaPorCep(cep)
                 .orElseThrow(() -> new BusinessException("Nenhuma UBS encontrada próxima ao CEP: " + cep));
 
         log.info("UBS encontrada: {} - {}", unidadeSaude.getCodigoCnes(), unidadeSaude.getNome());
 
-        // 4. Buscar profissional da especialidade na unidade (ou qualquer profissional da especialidade)
         List<Profissional> profissionais = profissionalGateway.buscarPorEspecialidadeId(especialidadeId);
 
         if (profissionais.isEmpty()) {
             throw new BusinessException("Nenhum profissional encontrado para a especialidade: " + especialidade.getNome());
         }
 
-        // Selecionar o primeiro profissional disponível
         Profissional profissional = profissionais.get(0);
         log.info("Profissional selecionado: {} - {}", profissional.getId(), profissional.getNomeCompleto());
 
-        // 5. Verificar se já existe agendamento no mesmo horário
         List<StatusAgendamento> statusAtivos = List.of(
                 StatusAgendamento.AGENDADO,
                 StatusAgendamento.CONFIRMADO
@@ -69,7 +63,6 @@ public class CriarAgendamentoPorCepUseCase {
             throw new BusinessException("Horário não disponível para agendamento");
         }
 
-        // 6. Criar agendamento
         Agendamento agendamento = new Agendamento();
         agendamento.setPaciente(paciente);
         agendamento.setProfissional(profissional);

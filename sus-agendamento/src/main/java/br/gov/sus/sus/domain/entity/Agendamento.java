@@ -43,7 +43,6 @@ public class Agendamento {
         this.motivoCancelamento = motivoCancelamento;
     }
 
-    // Métodos de negócio
     public void confirmar() {
         if (this.status != StatusAgendamento.AGENDADO) {
             throw new IllegalStateException("Apenas agendamentos com status AGENDADO podem ser confirmados");
@@ -83,7 +82,6 @@ public class Agendamento {
         this.dataAtualizacao = LocalDateTime.now();
     }
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }

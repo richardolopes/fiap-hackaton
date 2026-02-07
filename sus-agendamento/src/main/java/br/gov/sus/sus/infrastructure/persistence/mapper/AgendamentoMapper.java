@@ -42,7 +42,6 @@ public class AgendamentoMapper {
         agendamento.setDataAtualizacao(entity.getDataAtualizacao());
         agendamento.setMotivoCancelamento(entity.getMotivoCancelamento());
 
-        // Enriquecer com dados das APIs externas
         if (entity.getPacienteId() != null) {
             pacienteGateway.buscarPorId(entity.getPacienteId())
                     .ifPresent(agendamento::setPaciente);
