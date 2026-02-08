@@ -1,10 +1,11 @@
 package br.gov.sus.agendamento.domain.usecase.agendamento;
 
 import br.gov.sus.agendamento.application.exception.BusinessException;
-import br.gov.sus.agendamento.domain.entity.*;
-import br.gov.sus.agendamento.domain.enums.StatusAgendamento;
-import br.gov.sus.agendamento.domain.enums.TipoAtendimento;
 import br.gov.sus.agendamento.domain.gateway.*;
+import br.gov.sus.shared.domain.entity.*;
+import br.gov.sus.shared.domain.enums.StatusAgendamento;
+import br.gov.sus.shared.domain.enums.TipoAtendimento;
+import br.gov.sus.shared.domain.entity.Paciente;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

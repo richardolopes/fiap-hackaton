@@ -107,7 +107,7 @@ public class TelemedicinaService {
         whatsAppClient.sendConsultationNotification(
                 "+5511965147758", // paciente.getTelefone()
                 paciente.getNomeCompleto(),
-                "Profissional Dr(a).: " + mockSusApiClient.getProfissional(agendamento.getProfissionalId()),
+                "Dr(a).: " + mockSusApiClient.getProfissional(agendamento.getProfissionalId()).getNomeCompleto(),
                 appointmentTime,
                 consulta.getZoomJoinUrl()
         );

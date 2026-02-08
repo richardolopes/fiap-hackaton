@@ -88,7 +88,7 @@ public class WhatsAppClient {
                 Sua consulta por telemedicina está próxima!
                 
                 📋 *Detalhes da Consulta:*
-                👨‍⚕️ Profissional: %s
+                👨‍⚕️ Profissional %s
                 🕐 Horário: %s
                 
                 🔗 *Link da Reunião:*
