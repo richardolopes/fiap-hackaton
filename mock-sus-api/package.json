@@ -1,5 +1,5 @@
 {
-  "name": "sus-mock-server",
+  "name": "mock-sus-api",
   "version": "1.0.0",
   "description": "Mock Server para simular APIs externas do sistema SUS",
   "main": "server.js",

@@ -31,8 +31,8 @@ sus:
 
 # API Mock Server (Profissionais, Especialidades, Horários)
 api:
-  mock-server:
-    url: ${MOCK_SERVER_URL:http://localhost:3000}
+  mock-sus-api:
+    url: ${MOCK_SUS_API_URL:http://localhost:3000}
 
 # Configuração do Feign
 feign:

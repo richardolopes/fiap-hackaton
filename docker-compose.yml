@@ -16,19 +16,19 @@ services:
       timeout: 5s
       retries: 10
 
-  mock-server:
+  mock-sus-api:
     image: node:18-alpine
-    container_name: sus-mock-server
+    container_name: sus-mock-sus-api
     working_dir: /app
     volumes:
-      - ./mock-server:/app
+      - ./mock-sus-api:/app
     command: sh -c "npm install && npx json-server --watch db.json --port 3000 --host 0.0.0.0"
     ports:
       - "3000:3000"
 
-  app:
+  app-agendamento:
     build:
-      context: .
+      context: sus-agendamento
       dockerfile: Dockerfile
     container_name: sus-agendamento
     ports:
@@ -37,12 +37,12 @@ services:
       DATABASE_URL: jdbc:postgresql://postgres:5432/susdb
       DATABASE_USERNAME: sus
       DATABASE_PASSWORD: sus123
-      MOCK_SERVER_URL: http://mock-server:3000
+      MOCK_SUS_API_URL: http://mock-sus-api:3000
       SHOW_SQL: "true"
     depends_on:
       postgres:
         condition: service_healthy
-      mock-server:
+      mock-sus-api:
         condition: service_started
 
 volumes:

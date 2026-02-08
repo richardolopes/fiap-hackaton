@@ -5,7 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name = "pacienteClient", url = "${api.mock-server.url}")
+@FeignClient(name = "pacienteClient", url = "${api.mock-sus-api.url}")
 public interface PacienteClient {
 
     @GetMapping("/pacientes/{id}")

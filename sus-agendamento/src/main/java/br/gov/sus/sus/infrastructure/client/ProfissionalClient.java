@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient(name = "profissionalClient", url = "${api.mock-server.url}")
+@FeignClient(name = "profissionalClient", url = "${api.mock-sus-api.url}")
 public interface ProfissionalClient {
 
     @GetMapping("/profissionais/{id}")

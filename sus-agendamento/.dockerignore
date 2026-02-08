@@ -1,8 +1,0 @@
-.git
-.gitignore
-.mvn
-target
-*.md
-mock-server/node_modules
-.idea
-*.iml

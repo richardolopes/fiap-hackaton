@@ -37,14 +37,14 @@ curl -s -X POST http://localhost:8080/api/v1/agendamentos/por-cep \
 
 **Campos do request:**
 
-| Campo                 | Tipo           | Obrigatório | Descrição                                        |
-|-----------------------|----------------|-------------|--------------------------------------------------|
-| `pacienteId`          | Long           | Sim         | ID do paciente (mock-server)                     |
-| `cep`                 | String         | Sim         | CEP para localizar UBS próxima (8 dígitos)       |
-| `especialidadeId`     | Long           | Sim         | ID da especialidade médica (mock-server)         |
-| `dataHoraAgendamento` | LocalDateTime  | Sim         | Data/hora futura no formato ISO 8601             |
-| `tipoAtendimento`     | Enum           | Sim         | `PRESENCIAL` ou `TELEMEDICINA`                   |
-| `observacoes`         | String         | Não         | Observações adicionais                           |
+| Campo                 | Tipo           | Obrigatório | Descrição                                  |
+|-----------------------|----------------|-------------|--------------------------------------------|
+| `pacienteId`          | Long           | Sim         | ID do paciente                             |
+| `cep`                 | String         | Sim         | CEP para localizar UBS próxima (8 dígitos) |
+| `especialidadeId`     | Long           | Sim         | ID da especialidade médica                 |
+| `dataHoraAgendamento` | LocalDateTime  | Sim         | Data/hora futura no formato ISO 8601       |
+| `tipoAtendimento`     | Enum           | Sim         | `PRESENCIAL` ou `TELEMEDICINA`             |
+| `observacoes`         | String         | Não         | Observações adicionais                     |
 
 **Resposta esperada (201 Created):**
 

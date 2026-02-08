@@ -71,10 +71,10 @@ src/main/java/br/gov/sus/sus/
 - Maven 3.9+
 - Node.js 18+ (para json-server)
 
-### 1. Iniciar o Mock Server (json-server)
+### 1. Iniciar o Mock das APIs do SUS (json-server)
 
 ```bash
-cd mock-server
+cd ../mock-sus-api
 npm install
 npm start
 ```
@@ -515,10 +515,6 @@ sus-agendamento/
 ├── mvnw                             # Maven Wrapper
 ├── README.md                        # Esta documentação
 │
-├── mock-server/                     # Mock das APIs externas
-│   ├── package.json
-│   └── db.json                      # Dados mockados
-│
 └── src/
     ├── main/
     │   ├── java/br/gov/sus/sus/
@@ -531,32 +527,6 @@ sus-agendamento/
     │       └── data.sql
     └── test/
         └── java/
-```
-
----
-
-## 🔧 Configuração
-
-### application.yml
-
-```yaml
-server:
-  port: 8080
-
-spring:
-  datasource:
-    url: jdbc:h2:mem:susdb
-    driver-class-name: org.h2.Driver
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
-  h2:
-    console:
-      enabled: true
-
-api:
-  mock-server:
-    url: http://localhost:3000
 ```
 
 ---
