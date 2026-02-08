@@ -1,6 +1,7 @@
-package br.gov.sus.agendamento.domain.enums;
+package br.gov.sus.shared.domain.enums;
 
 public enum TipoAtendimento {
     PRESENCIAL,
     TELEMEDICINA
 }
+

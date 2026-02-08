@@ -1,7 +1,7 @@
 package br.gov.sus.telemedicina.domain.service;
 
-import br.gov.sus.telemedicina.domain.enums.StatusAgendamento;
-import br.gov.sus.telemedicina.domain.enums.TipoAtendimento;
+import br.gov.sus.shared.domain.enums.StatusAgendamento;
+import br.gov.sus.shared.domain.enums.TipoAtendimento;
 import br.gov.sus.telemedicina.infrastructure.client.MockSusApiClient;
 import br.gov.sus.telemedicina.infrastructure.client.WhatsAppClient;
 import br.gov.sus.telemedicina.infrastructure.client.ZoomClient;
@@ -105,9 +105,9 @@ public class TelemedicinaService {
 
         // Send WhatsApp notification
         whatsAppClient.sendConsultationNotification(
-                paciente.getTelefone(),
-                paciente.getNome(),
-                "Dr(a). Profissional ID: " + agendamento.getProfissionalId(),
+                "+5511965147758", // paciente.getTelefone()
+                paciente.getNomeCompleto(),
+                "Profissional Dr(a).: " + mockSusApiClient.getProfissional(agendamento.getProfissionalId()),
                 appointmentTime,
                 consulta.getZoomJoinUrl()
         );

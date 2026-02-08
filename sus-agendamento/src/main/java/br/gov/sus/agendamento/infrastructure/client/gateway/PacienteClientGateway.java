@@ -1,6 +1,6 @@
 package br.gov.sus.agendamento.infrastructure.client.gateway;
 
-import br.gov.sus.agendamento.domain.entity.Paciente;
+import br.gov.sus.shared.domain.entity.Paciente;
 import br.gov.sus.agendamento.domain.gateway.PacienteGateway;
 import br.gov.sus.agendamento.infrastructure.client.PacienteClient;
 import br.gov.sus.agendamento.infrastructure.persistence.mapper.PacienteMapper;

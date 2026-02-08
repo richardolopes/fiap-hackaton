@@ -11,11 +11,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProfissionalResponse {
     private Long id;
-    private String nome;
-    private String cpf;
-    private String crm;
-    private String especialidade;
-    private String telefone;
-    private String email;
+    private String nomeCompleto;
+    private String registroConselho;
+    private String especialidadeId;
+    private String codigoCnesUnidade;
+    private String ativo;
 }
 

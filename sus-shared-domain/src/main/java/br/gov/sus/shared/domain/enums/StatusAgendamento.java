@@ -1,4 +1,4 @@
-package br.gov.sus.agendamento.domain.enums;
+package br.gov.sus.shared.domain.enums;
 
 public enum StatusAgendamento {
     AGENDADO,
@@ -9,3 +9,4 @@ public enum StatusAgendamento {
     CANCELADO_UNIDADE,
     NAO_COMPARECEU
 }
+

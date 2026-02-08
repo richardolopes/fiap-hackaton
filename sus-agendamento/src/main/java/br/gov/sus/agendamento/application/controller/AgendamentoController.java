@@ -3,7 +3,7 @@ package br.gov.sus.agendamento.application.controller;
 import br.gov.sus.agendamento.application.dto.request.AgendamentoPorCepRequest;
 import br.gov.sus.agendamento.application.dto.request.CancelamentoRequest;
 import br.gov.sus.agendamento.application.dto.response.AgendamentoResponse;
-import br.gov.sus.agendamento.domain.entity.Agendamento;
+import br.gov.sus.shared.domain.entity.Agendamento;
 import br.gov.sus.agendamento.domain.usecase.agendamento.BuscarAgendamentoPorIdUseCase;
 import br.gov.sus.agendamento.domain.usecase.agendamento.CancelarAgendamentoUseCase;
 import br.gov.sus.agendamento.domain.usecase.agendamento.CriarAgendamentoPorCepUseCase;

@@ -1,6 +1,6 @@
 package br.gov.sus.agendamento.domain.gateway;
 
-import br.gov.sus.agendamento.domain.entity.Especialidade;
+import br.gov.sus.shared.domain.entity.Especialidade;
 
 import java.util.Optional;
 

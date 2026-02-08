@@ -1,7 +1,7 @@
 package br.gov.sus.telemedicina.infrastructure.persistence.repository;
 
-import br.gov.sus.telemedicina.domain.enums.StatusAgendamento;
-import br.gov.sus.telemedicina.domain.enums.TipoAtendimento;
+import br.gov.sus.shared.domain.enums.StatusAgendamento;
+import br.gov.sus.shared.domain.enums.TipoAtendimento;
 import br.gov.sus.telemedicina.infrastructure.persistence.entity.AgendamentoJpaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

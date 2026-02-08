@@ -22,7 +22,7 @@ public class TelemedicinaScheduler {
     /**
      * Runs every 5 minutes to check for appointments that need notifications
      */
-    @Scheduled(fixedDelayString = "${scheduler.check-interval-minutes:5}000", initialDelay = 10000)
+//    @Scheduled(fixedDelayString = "${scheduler.check-interval-minutes:5}000", initialDelay = 10000)
     public void verificarAgendamentos() {
         log.info("Starting scheduled check for telemedicine appointments");
 

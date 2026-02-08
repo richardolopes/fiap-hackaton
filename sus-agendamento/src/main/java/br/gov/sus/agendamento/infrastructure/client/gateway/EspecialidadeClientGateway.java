@@ -1,6 +1,6 @@
 package br.gov.sus.agendamento.infrastructure.client.gateway;
 
-import br.gov.sus.agendamento.domain.entity.Especialidade;
+import br.gov.sus.shared.domain.entity.Especialidade;
 import br.gov.sus.agendamento.domain.gateway.EspecialidadeGateway;
 import br.gov.sus.agendamento.infrastructure.client.EspecialidadeClient;
 import br.gov.sus.agendamento.infrastructure.persistence.mapper.EspecialidadeMapper;

@@ -1,7 +1,7 @@
-package br.gov.sus.agendamento.domain.entity;
+package br.gov.sus.shared.domain.entity;
 
-import br.gov.sus.agendamento.domain.enums.StatusAgendamento;
-import br.gov.sus.agendamento.domain.enums.TipoAtendimento;
+import br.gov.sus.shared.domain.enums.StatusAgendamento;
+import br.gov.sus.shared.domain.enums.TipoAtendimento;
 
 import java.time.LocalDateTime;
 
@@ -178,3 +178,4 @@ public class Agendamento {
         this.motivoCancelamento = motivoCancelamento;
     }
 }
+

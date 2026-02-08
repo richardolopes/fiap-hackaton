@@ -1,8 +1,8 @@
 package br.gov.sus.agendamento.domain.usecase.agendamento;
 
 import br.gov.sus.agendamento.application.exception.ResourceNotFoundException;
-import br.gov.sus.agendamento.domain.entity.Agendamento;
-import br.gov.sus.agendamento.domain.enums.StatusAgendamento;
+import br.gov.sus.shared.domain.entity.Agendamento;
+import br.gov.sus.shared.domain.enums.StatusAgendamento;
 import br.gov.sus.agendamento.domain.gateway.AgendamentoGateway;
 
 public class CancelarAgendamentoUseCase {

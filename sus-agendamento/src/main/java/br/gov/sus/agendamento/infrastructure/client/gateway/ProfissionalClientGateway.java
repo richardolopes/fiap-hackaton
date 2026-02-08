@@ -1,6 +1,6 @@
 package br.gov.sus.agendamento.infrastructure.client.gateway;
 
-import br.gov.sus.agendamento.domain.entity.Profissional;
+import br.gov.sus.shared.domain.entity.Profissional;
 import br.gov.sus.agendamento.domain.gateway.ProfissionalGateway;
 import br.gov.sus.agendamento.infrastructure.client.ProfissionalClient;
 import br.gov.sus.agendamento.infrastructure.persistence.mapper.ProfissionalMapper;

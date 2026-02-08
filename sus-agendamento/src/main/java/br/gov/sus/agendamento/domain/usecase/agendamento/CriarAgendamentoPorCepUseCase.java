@@ -1,9 +1,9 @@
 package br.gov.sus.agendamento.domain.usecase.agendamento;
 
 import br.gov.sus.agendamento.application.exception.BusinessException;
-import br.gov.sus.agendamento.domain.entity.*;
-import br.gov.sus.agendamento.domain.enums.StatusAgendamento;
-import br.gov.sus.agendamento.domain.enums.TipoAtendimento;
+import br.gov.sus.shared.domain.entity.*;
+import br.gov.sus.shared.domain.enums.StatusAgendamento;
+import br.gov.sus.shared.domain.enums.TipoAtendimento;
 import br.gov.sus.agendamento.domain.gateway.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

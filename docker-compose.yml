@@ -28,8 +28,8 @@ services:
 
   app-agendamento:
     build:
-      context: sus-agendamento
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: sus-agendamento/Dockerfile
     container_name: sus-agendamento
     ports:
       - "8080:8080"
@@ -47,8 +47,8 @@ services:
 
   app-telemedicina:
     build:
-      context: sus-telemedicina
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: sus-telemedicina/Dockerfile
     container_name: sus-telemedicina
     ports:
       - "8081:8081"

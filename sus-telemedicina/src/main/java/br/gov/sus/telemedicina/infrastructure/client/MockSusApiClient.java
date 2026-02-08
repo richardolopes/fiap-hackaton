@@ -1,6 +1,7 @@
 package br.gov.sus.telemedicina.infrastructure.client;
 
 import br.gov.sus.telemedicina.infrastructure.client.dto.PacienteResponse;
+import br.gov.sus.telemedicina.infrastructure.client.dto.ProfissionalResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -28,12 +29,21 @@ public class MockSusApiClient {
                     .block();
         } catch (Exception e) {
             log.error("Error fetching patient data", e);
-            // Return mock data in case of error
-            return PacienteResponse.builder()
-                    .id(pacienteId)
-                    .nome("Paciente " + pacienteId)
-                    .telefone("+5511999999999")
-                    .build();
+            throw e;
+        }
+    }
+
+    public ProfissionalResponse getProfissional(Long profissionalId) {
+        try {
+            log.info("Fetching profissional data for ID: {}", profissionalId);
+            return webClient.get()
+                    .uri("/pacientes/{id}", profissionalId)
+                    .retrieve()
+                    .bodyToMono(ProfissionalResponse.class)
+                    .block();
+        } catch (Exception e) {
+            log.error("Error fetching patient data", e);
+            throw e;
         }
     }
 }

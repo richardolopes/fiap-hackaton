@@ -1,6 +1,6 @@
 package br.gov.sus.agendamento.application.dto.request;
 
-import br.gov.sus.agendamento.domain.enums.TipoAtendimento;
+import br.gov.sus.shared.domain.enums.TipoAtendimento;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

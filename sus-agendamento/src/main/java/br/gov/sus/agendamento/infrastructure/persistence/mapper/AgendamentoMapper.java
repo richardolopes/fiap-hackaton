@@ -1,6 +1,6 @@
 package br.gov.sus.agendamento.infrastructure.persistence.mapper;
 
-import br.gov.sus.agendamento.domain.entity.Agendamento;
+import br.gov.sus.shared.domain.entity.Agendamento;
 import br.gov.sus.agendamento.domain.gateway.EspecialidadeGateway;
 import br.gov.sus.agendamento.domain.gateway.PacienteGateway;
 import br.gov.sus.agendamento.domain.gateway.ProfissionalGateway;

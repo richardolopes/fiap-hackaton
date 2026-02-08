@@ -1,4 +1,4 @@
-package br.gov.sus.agendamento.domain.entity;
+package br.gov.sus.shared.domain.entity;
 
 public class Profissional {
 
@@ -137,3 +137,4 @@ public class Profissional {
         }
     }
 }
+

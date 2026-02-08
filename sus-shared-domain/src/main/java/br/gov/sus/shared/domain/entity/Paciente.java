@@ -1,4 +1,4 @@
-package br.gov.sus.agendamento.domain.entity;
+package br.gov.sus.shared.domain.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -219,3 +219,4 @@ public class Paciente {
         }
     }
 }
+

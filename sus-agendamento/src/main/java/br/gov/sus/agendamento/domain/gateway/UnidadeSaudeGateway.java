@@ -1,6 +1,6 @@
 package br.gov.sus.agendamento.domain.gateway;
 
-import br.gov.sus.agendamento.domain.entity.UnidadeSaude;
+import br.gov.sus.shared.domain.entity.UnidadeSaude;
 
 import java.util.Optional;
 

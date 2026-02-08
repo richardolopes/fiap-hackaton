@@ -1,6 +1,6 @@
 package br.gov.sus.agendamento.infrastructure.client.gateway;
 
-import br.gov.sus.agendamento.domain.entity.UnidadeSaude;
+import br.gov.sus.shared.domain.entity.UnidadeSaude;
 import br.gov.sus.agendamento.domain.gateway.UnidadeSaudeGateway;
 import br.gov.sus.agendamento.infrastructure.client.EstabelecimentoSusClient;
 import br.gov.sus.agendamento.infrastructure.client.NominatimClient;

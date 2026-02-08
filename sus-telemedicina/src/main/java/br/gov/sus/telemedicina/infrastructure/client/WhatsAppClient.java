@@ -44,8 +44,13 @@ public class WhatsAppClient {
                     ? toPhoneNumber
                     : "whatsapp:" + toPhoneNumber;
 
+            // Ensure the phone number has the whatsapp: prefix
+            String formattedFrom = fromNumber.startsWith("whatsapp:")
+                    ? fromNumber
+                    : "whatsapp:" + fromNumber;
+
             RequestBody body = new FormBody.Builder()
-                    .add("From", fromNumber)
+                    .add("From", formattedFrom)
                     .add("To", formattedTo)
                     .add("Body", message)
                     .build();

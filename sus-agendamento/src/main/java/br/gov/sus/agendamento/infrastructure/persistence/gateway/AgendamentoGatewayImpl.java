@@ -1,6 +1,6 @@
 package br.gov.sus.agendamento.infrastructure.persistence.gateway;
 
-import br.gov.sus.agendamento.domain.entity.Agendamento;
+import br.gov.sus.shared.domain.entity.Agendamento;
 import br.gov.sus.agendamento.domain.gateway.AgendamentoGateway;
 import br.gov.sus.agendamento.infrastructure.persistence.entity.AgendamentoJpaEntity;
 import br.gov.sus.agendamento.infrastructure.persistence.mapper.AgendamentoMapper;
@@ -51,7 +51,7 @@ public class AgendamentoGatewayImpl implements AgendamentoGateway {
 
     @Override
     public boolean existeAgendamentoProfissionalNoHorario(
-            Long profissionalId, LocalDateTime dataHora, List<br.gov.sus.agendamento.domain.enums.StatusAgendamento> statusExcluidos) {
+            Long profissionalId, LocalDateTime dataHora, List<br.gov.sus.shared.domain.enums.StatusAgendamento> statusExcluidos) {
         return repository.findByProfissionalIdAndDataHoraAgendamento(profissionalId, dataHora)
                 .stream()
                 .anyMatch(a -> !statusExcluidos.contains(a.getStatus()));

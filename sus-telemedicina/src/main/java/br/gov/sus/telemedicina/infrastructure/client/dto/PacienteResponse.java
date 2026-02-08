@@ -11,17 +11,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PacienteResponse {
     private Long id;
-    private String nome;
+    private String nomeCompleto;
     private String cpf;
+    private String cartaoSus;
     private String dataNascimento;
     private String telefone;
     private String email;
-    private String cep;
     private String endereco;
-    private String numero;
-    private String complemento;
-    private String bairro;
-    private String cidade;
-    private String estado;
+    private String municipio;
+    private String uf;
+    private String cep;
 }
 

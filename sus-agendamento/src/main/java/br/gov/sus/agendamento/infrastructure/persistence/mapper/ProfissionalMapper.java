@@ -1,6 +1,6 @@
 package br.gov.sus.agendamento.infrastructure.persistence.mapper;
 
-import br.gov.sus.agendamento.domain.entity.Profissional;
+import br.gov.sus.shared.domain.entity.Profissional;
 import br.gov.sus.agendamento.infrastructure.client.dto.ProfissionalApiResponse;
 import org.springframework.stereotype.Component;
 
