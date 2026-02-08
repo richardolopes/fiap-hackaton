@@ -70,7 +70,190 @@ curl -s -X POST http://localhost:8080/api/v1/agendamentos/por-cep \
 
 ---
 
-## 2. Buscar Agendamento por ID
+## 2. Agendar Múltiplos Pacientes no Mesmo Horário (Mesmo Especialidade)
+
+Quando existem vários profissionais com a mesma especialidade, o sistema deve alocar automaticamente um profissional disponível. Se o primeiro já está ocupado no horário, deve atribuir o próximo.
+
+### 2.1. Primeiro agendamento — profissional 1 disponível
+
+```bash
+curl -s -X POST http://localhost:8080/api/v1/agendamentos/por-cep \
+  -H "Content-Type: application/json" \
+  -d '{
+    "pacienteId": 1,
+    "cep": "01310100",
+    "especialidadeId": 1,
+    "dataHoraAgendamento": "2026-03-15T14:00:00",
+    "tipoAtendimento": "PRESENCIAL",
+    "observacoes": "Primeiro agendamento - deve alocar profissional 1"
+  }'
+```
+
+**Resposta esperada (201 Created):**
+
+```json
+{
+    "id": 1,
+    "nomePaciente": "José da Silva",
+    "nomeProfissional": "Dr. João Silva",
+    "nomeEspecialidade": "Clínica Geral",
+    "dataHoraAgendamento": "2026-03-15T14:00:00",
+    "status": "AGENDADO",
+    "tipoAtendimento": "PRESENCIAL",
+    "observacoes": "Primeiro agendamento - deve alocar profissional 1"
+}
+```
+
+### 2.2. Segundo agendamento mesmo horário — deve alocar outro profissional
+
+```bash
+curl -s -X POST http://localhost:8080/api/v1/agendamentos/por-cep \
+  -H "Content-Type: application/json" \
+  -d '{
+    "pacienteId": 2,
+    "cep": "01310200",
+    "especialidadeId": 1,
+    "dataHoraAgendamento": "2026-03-15T14:00:00",
+    "tipoAtendimento": "PRESENCIAL",
+    "observacoes": "Segundo agendamento mesmo horário - deve alocar profissional diferente"
+  }'
+```
+
+**Resposta esperada (201 Created):**
+
+O sistema deve retornar sucesso com um profissional **diferente** do primeiro agendamento, pois o Dr. João Silva já está ocupado às 14h.
+
+```json
+{
+    "id": 2,
+    "nomePaciente": "Maria Oliveira",
+    "nomeProfissional": "Dra. Ana Rodrigues",
+    "nomeEspecialidade": "Clínica Geral",
+    "dataHoraAgendamento": "2026-03-15T14:00:00",
+    "status": "AGENDADO",
+    "tipoAtendimento": "PRESENCIAL",
+    "observacoes": "Segundo agendamento mesmo horário - deve alocar profissional diferente"
+}
+```
+
+### 2.3. Terceiro agendamento mesmo horário — deve alocar mais um profissional
+
+```bash
+curl -s -X POST http://localhost:8080/api/v1/agendamentos/por-cep \
+  -H "Content-Type: application/json" \
+  -d '{
+    "pacienteId": 3,
+    "cep": "01310300",
+    "especialidadeId": 1,
+    "dataHoraAgendamento": "2026-03-15T14:00:00",
+    "tipoAtendimento": "PRESENCIAL",
+    "observacoes": "Terceiro agendamento mesmo horário"
+  }'
+```d
+
+**Resposta esperada (201 Created):**
+
+Deve alocar um terceiro profissional disponível de Clínica Geral.
+
+```json
+{
+    "id": 3,
+    "nomePaciente": "Carlos Santos",
+    "nomeProfissional": "Dr. Fernando Lima",
+    "nomeEspecialidade": "Clínica Geral",
+    "dataHoraAgendamento": "2026-03-15T14:00:00",
+    "status": "AGENDADO",
+    "tipoAtendimento": "PRESENCIAL",
+    "observacoes": "Terceiro agendamento mesmo horário"
+}
+```
+
+### 2.4. Verificação — agendamento em horário diferente reutiliza o primeiro profissional
+
+```bash
+curl -s -X POST http://localhost:8080/api/v1/agendamentos/por-cep \
+  -H "Content-Type: application/json" \
+  -d '{
+    "pacienteId": 4,
+    "cep": "01310100",
+    "especialidadeId": 1,
+    "dataHoraAgendamento": "2026-03-15T15:00:00",
+    "tipoAtendimento": "PRESENCIAL",
+    "observacoes": "Horário diferente - profissional 1 deve estar disponível novamente"
+  }'
+```
+
+**Resposta esperada (201 Created):**
+
+Como o horário é diferente (15h), o primeiro profissional (Dr. João Silva) está livre novamente.
+
+```json
+{
+    "id": 4,
+    "nomePaciente": "Ana Pereira",
+    "nomeProfissional": "Dr. João Silva",
+    "nomeEspecialidade": "Clínica Geral",
+    "dataHoraAgendamento": "2026-03-15T15:00:00",
+    "status": "AGENDADO",
+    "tipoAtendimento": "PRESENCIAL"
+}
+```
+
+### 2.5. Cancelamento libera horário do profissional
+
+Cancelar o primeiro agendamento e verificar que o profissional fica disponível novamente:
+
+```bash
+# Cancelar o agendamento do profissional 1 às 14h
+curl -s -X PATCH http://localhost:8080/api/v1/agendamentos/1/cancelar \
+  -H "Content-Type: application/json" \
+  -d '{
+    "motivo": "Paciente solicitou cancelamento"
+  }'
+```
+
+**Resposta esperada (200 OK):**
+
+```json
+{
+    "id": 1,
+    "status": "CANCELADO_PACIENTE",
+    "motivoCancelamento": "Paciente solicitou cancelamento"
+}
+```
+
+Agora um novo agendamento às 14h deve poder usar o Dr. João Silva novamente:
+
+```bash
+curl -s -X POST http://localhost:8080/api/v1/agendamentos/por-cep \
+  -H "Content-Type: application/json" \
+  -d '{
+    "pacienteId": 5,
+    "cep": "01310100",
+    "especialidadeId": 1,
+    "dataHoraAgendamento": "2026-03-15T14:00:00",
+    "tipoAtendimento": "PRESENCIAL",
+    "observacoes": "Após cancelamento - profissional 1 deve estar disponível"
+  }'
+```
+
+**Resposta esperada (201 Created):**
+
+```json
+{
+    "id": 5,
+    "nomeProfissional": "Dr. João Silva",
+    "nomeEspecialidade": "Clínica Geral",
+    "dataHoraAgendamento": "2026-03-15T14:00:00",
+    "status": "AGENDADO"
+}
+```
+
+> **Nota:** A especialidade Clínica Geral (ID 1) possui 7 profissionais cadastrados (IDs: 1, 4, 7, 11, 13, 15, 17). O sistema alocará profissionais disponíveis na ordem retornada pela API até esgotar todos.
+
+---
+
+## 3. Buscar Agendamento por ID
 
 **Endpoint:** `GET /api/v1/agendamentos/{id}`
 
@@ -102,7 +285,7 @@ curl -s http://localhost:8080/api/v1/agendamentos/1
 
 ---
 
-## 3. Cancelar Agendamento
+## 4. Cancelar Agendamento
 
 **Endpoint:** `PATCH /api/v1/agendamentos/{id}/cancelar`
 

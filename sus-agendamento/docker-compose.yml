@@ -1,0 +1,49 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: sus-postgres
+    environment:
+      POSTGRES_DB: susdb
+      POSTGRES_USER: sus
+      POSTGRES_PASSWORD: sus123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sus -d susdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  mock-server:
+    image: node:18-alpine
+    container_name: sus-mock-server
+    working_dir: /app
+    volumes:
+      - ./mock-server:/app
+    command: sh -c "npm install && npx json-server --watch db.json --port 3000 --host 0.0.0.0"
+    ports:
+      - "3000:3000"
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sus-agendamento
+    ports:
+      - "8080:8080"
+    environment:
+      DATABASE_URL: jdbc:postgresql://postgres:5432/susdb
+      DATABASE_USERNAME: sus
+      DATABASE_PASSWORD: sus123
+      MOCK_SUS_API_URL: http://mock-server:3000
+      SHOW_SQL: "true"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mock-server:
+        condition: service_started
+
+volumes:
+  postgres_data:

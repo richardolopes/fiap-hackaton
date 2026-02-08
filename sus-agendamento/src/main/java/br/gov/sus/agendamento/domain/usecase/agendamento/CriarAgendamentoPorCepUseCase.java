@@ -47,21 +47,17 @@ public class CriarAgendamentoPorCepUseCase {
             throw new BusinessException("Nenhum profissional encontrado para a especialidade: " + especialidade.getNome());
         }
 
-        Profissional profissional = profissionais.get(0);
+        List<StatusAgendamento> statusExcluidos = List.of(
+                StatusAgendamento.CANCELADO_PACIENTE, StatusAgendamento.CANCELADO_UNIDADE);
+
+        Profissional profissional = profissionais.stream()
+                .filter(p -> !agendamentoGateway.existeAgendamentoProfissionalNoHorario(
+                        p.getId(), dataHoraAgendamento, statusExcluidos))
+                .findFirst()
+                .orElseThrow(() -> new BusinessException(
+                        "Nenhum profissional disponível no horário solicitado para a especialidade: " + especialidade.getNome()));
+
         log.info("Profissional selecionado: {} - {}", profissional.getId(), profissional.getNomeCompleto());
-
-        List<StatusAgendamento> statusAtivos = List.of(
-                StatusAgendamento.AGENDADO,
-                StatusAgendamento.CONFIRMADO
-        );
-
-        boolean horarioOcupado = agendamentoGateway.existeAgendamentoProfissionalNoHorario(
-                profissional.getId(), dataHoraAgendamento,
-                List.of(StatusAgendamento.CANCELADO_PACIENTE, StatusAgendamento.CANCELADO_UNIDADE));
-
-        if (horarioOcupado) {
-            throw new BusinessException("Horário não disponível para agendamento");
-        }
 
         Agendamento agendamento = new Agendamento();
         agendamento.setPaciente(paciente);
