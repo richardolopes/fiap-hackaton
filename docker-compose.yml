@@ -45,5 +45,34 @@ services:
       mock-sus-api:
         condition: service_started
 
+  app-telemedicina:
+    build:
+      context: sus-telemedicina
+      dockerfile: Dockerfile
+    container_name: sus-telemedicina
+    ports:
+      - "8081:8081"
+    environment:
+      DATABASE_URL: jdbc:postgresql://postgres:5432/susdb
+      DATABASE_USERNAME: sus
+      DATABASE_PASSWORD: sus123
+      MOCK_SUS_API_URL: http://mock-sus-api:3000
+      SHOW_SQL: "true"
+      SCHEDULER_ENABLED: "true"
+      SCHEDULER_CHECK_INTERVAL: "5"
+      NOTIFICATION_ADVANCE_MINUTES: "15"
+      # Configure these with your actual credentials
+      ZOOM_ACCOUNT_ID: "your-account-id"
+      ZOOM_CLIENT_ID: "your-client-id"
+      ZOOM_CLIENT_SECRET: "your-client-secret"
+      TWILIO_ACCOUNT_SID: "your-account-sid"
+      TWILIO_AUTH_TOKEN: "your-auth-token"
+      TWILIO_WHATSAPP_FROM: "whatsapp:+14155238886"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mock-sus-api:
+        condition: service_started
+
 volumes:
   postgres_data:
