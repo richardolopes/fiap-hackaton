@@ -29,7 +29,7 @@ curl -s -X POST http://localhost:8080/api/v1/agendamentos/por-cep \
     "pacienteId": 1,
     "cep": "01310100",
     "especialidadeId": 1,
-    "dataHoraAgendamento": "2026-02-09T10:00:00",
+    "dataHoraAgendamento": "2026-02-13T10:00:00",
     "tipoAtendimento": "PRESENCIAL",
     "observacoes": "Consulta de rotina"
   }'

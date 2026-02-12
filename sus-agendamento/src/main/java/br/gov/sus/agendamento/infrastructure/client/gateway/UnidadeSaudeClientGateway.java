@@ -9,6 +9,7 @@ import br.gov.sus.agendamento.infrastructure.client.dto.EstabelecimentoSusRespon
 import br.gov.sus.agendamento.infrastructure.client.dto.NominatimResponse;
 import br.gov.sus.agendamento.infrastructure.client.dto.ViaCepResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -26,6 +27,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Slf4j
 @Component
+@ConditionalOnProperty(name = "sus.api.mock-enabled", havingValue = "false", matchIfMissing = true)
 public class UnidadeSaudeClientGateway implements UnidadeSaudeGateway {
 
     private static final int CODIGO_TIPO_UNIDADE_UBS = 2; // Posto de Saúde / Centro de Saúde / Unidade Básica

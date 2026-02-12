@@ -28,6 +28,7 @@ agendamento:
 sus:
   api:
     base-url: https://apidadosabertos.saude.gov.br
+    mock-enabled: true  # true = usa dados mock (API fora do ar), false = chama API real
 
 # API Mock Server (Profissionais, Especialidades, Horários)
 api:
